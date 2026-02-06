@@ -112,10 +112,12 @@ h3 {
 .mobile-menu-toggle {
   display: none;
   flex-direction: column;
-  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
   width: 44px;
   height: 44px;
-  padding: 10px;
+  padding: 12px 10px;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
@@ -123,15 +125,17 @@ h3 {
   transition: background 0.2s ease;
   -webkit-tap-highlight-color: transparent;
   z-index: 101;
+  order: 2;
 }
 
 .mobile-menu-toggle span {
   display: block;
-  width: 100%;
+  width: 22px;
   height: 2px;
   background: var(--text);
   border-radius: 2px;
   transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
 }
 
 .mobile-menu-toggle:hover {
@@ -139,7 +143,7 @@ h3 {
 }
 
 .mobile-menu-toggle.active span:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
+  transform: translateY(7px) rotate(45deg);
 }
 
 .mobile-menu-toggle.active span:nth-child(2) {
@@ -147,7 +151,7 @@ h3 {
 }
 
 .mobile-menu-toggle.active span:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 .logo {
@@ -156,6 +160,35 @@ h3 {
   font-size: 1.4rem;
   text-shadow: var(--neon);
 }
+
+.hero-logo {
+  display: inline-block;
+  background: linear-gradient(
+    135deg,
+    var(--pink-strong) 0%,
+    var(--violet) 30%,
+    var(--blue-strong) 60%,
+    var(--pink-strong) 100%
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: heroLogoGradient 6s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px rgba(255, 124, 199, 0.4)) drop-shadow(0 0 60px rgba(84, 178, 255, 0.3));
+  position: relative;
+}
+
+@keyframes heroLogoGradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+
 
 .nav-links {
   display: flex;
@@ -171,10 +204,6 @@ h3 {
 
 .nav-links a:hover {
   color: var(--text);
-}
-
-.nav-cta {
-  white-space: nowrap;
 }
 
 .tag {
@@ -914,8 +943,6 @@ h3 {
 @media (max-width: 960px) {
   .mobile-menu-toggle {
     display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
   .nav {
@@ -924,6 +951,7 @@ h3 {
   }
 
   .nav-links {
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
@@ -943,12 +971,14 @@ h3 {
     visibility: hidden;
     transform: translateY(-20px);
     transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
   }
 
   .nav-links.active {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    pointer-events: auto;
   }
 
   .nav-links a {
@@ -963,15 +993,6 @@ h3 {
   .nav-links a:active {
     background: rgba(255, 255, 255, 0.1);
     color: var(--text);
-  }
-
-  .nav-cta {
-    display: none;
-  }
-
-  .nav .pill {
-    font-size: 0.85rem;
-    padding: 10px 16px;
   }
 
   .trial-combo {
