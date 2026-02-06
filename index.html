@@ -70,21 +70,35 @@
 
   <main>
     <section class="advantages" aria-label="Преимущества">
-      <div class="adv-card">
-        <div class="adv-icon">🏆</div>
-        <div class="adv-title">Сильная школа: московский уровень хореографии и постановок</div>
+      <div class="advantages-hero reveal">
+        <h2>Почему Himiya?</h2>
+        <p class="advantages-sub">Четыре причины выбрать нашу школу</p>
       </div>
-      <div class="adv-card">
-        <div class="adv-icon">🎯</div>
-        <div class="adv-title">Реальные выступления: баттлы, чемпионаты и отчётные шоу</div>
-      </div>
-      <div class="adv-card">
-        <div class="adv-icon">🎟️</div>
-        <div class="adv-title">Один абонемент на все направления и обе студии</div>
-      </div>
-      <div class="adv-card">
-        <div class="adv-icon">✨</div>
-        <div class="adv-title">Комфортный старт для новичков и рост для продвинутых</div>
+      <div class="advantages-grid">
+        <article class="adv-card reveal">
+          <div class="adv-number">01</div>
+          <div class="adv-icon">🏆</div>
+          <h3 class="adv-title">Сильная школа</h3>
+          <p class="adv-desc">Московский уровень хореографии и постановок</p>
+        </article>
+        <article class="adv-card reveal">
+          <div class="adv-number">02</div>
+          <div class="adv-icon">🎯</div>
+          <h3 class="adv-title">Реальные выступления</h3>
+          <p class="adv-desc">Баттлы, чемпионаты и отчётные шоу</p>
+        </article>
+        <article class="adv-card reveal">
+          <div class="adv-number">03</div>
+          <div class="adv-icon">🎫</div>
+          <h3 class="adv-title">Один абонемент</h3>
+          <p class="adv-desc">На все направления и обе студии</p>
+        </article>
+        <article class="adv-card reveal">
+          <div class="adv-number">04</div>
+          <div class="adv-icon">✨</div>
+          <h3 class="adv-title">Любой уровень</h3>
+          <p class="adv-desc">Комфортный старт для новичков и рост для продвинутых</p>
+        </article>
       </div>
     </section>
 
@@ -159,25 +173,49 @@
         </div>
       </div>
       <div class="slider" id="reviews">
-        <article class="review-card">
-          <div class="stars">★★★★★</div>
-          <p>«Через 6 недель дочь стала увереннее и уже выступила на своем первом мини-шоу.»</p>
-          <span>мама Арины, 15 лет</span>
+        <article class="review-card reveal">
+          <div class="review-header">
+            <div class="review-avatar">А</div>
+            <div class="review-meta">
+              <div class="review-author">мама Арины</div>
+              <div class="review-age">15 лет</div>
+            </div>
+            <div class="review-rating">5.0</div>
+          </div>
+          <p class="review-text">«Через 6 недель дочь стала увереннее и уже выступила на своем первом мини-шоу.»</p>
         </article>
-        <article class="review-card">
-          <div class="stars">★★★★★</div>
-          <p>«Пришла с нуля. За 2 месяца выучила базу и спокойно танцую в группе.»</p>
-          <span>Соня, 13</span>
+        <article class="review-card review-card--accent reveal">
+          <div class="review-header">
+            <div class="review-avatar">С</div>
+            <div class="review-meta">
+              <div class="review-author">Соня</div>
+              <div class="review-age">13 лет</div>
+            </div>
+            <div class="review-rating">5.0</div>
+          </div>
+          <p class="review-text">«Пришла с нуля. За 2 месяца выучила базу и спокойно танцую в группе.»</p>
         </article>
-        <article class="review-card">
-          <div class="stars">★★★★★</div>
-          <p>«Удобно, что один абонемент на все направления: легко найти свой стиль.»</p>
-          <span>Лера, 16</span>
+        <article class="review-card reveal">
+          <div class="review-header">
+            <div class="review-avatar">Л</div>
+            <div class="review-meta">
+              <div class="review-author">Лера</div>
+              <div class="review-age">16 лет</div>
+            </div>
+            <div class="review-rating">5.0</div>
+          </div>
+          <p class="review-text">«Удобно, что один абонемент на все направления: легко найти свой стиль.»</p>
         </article>
-        <article class="review-card">
-          <div class="stars">★★★★★</div>
-          <p>«Тренеры объясняют понятно и поддерживают. Хочется расти дальше.»</p>
-          <span>Маша, 17</span>
+        <article class="review-card reveal">
+          <div class="review-header">
+            <div class="review-avatar">М</div>
+            <div class="review-meta">
+              <div class="review-author">Маша</div>
+              <div class="review-age">17 лет</div>
+            </div>
+            <div class="review-rating">5.0</div>
+          </div>
+          <p class="review-text">«Тренеры объясняют понятно и поддерживают. Хочется расти дальше.»</p>
         </article>
       </div>
     </section>
@@ -272,32 +310,48 @@
         </div>
       </div>
       <div class="slider" id="trainers">
-        <article class="trainer-card" data-name="Кира Новикова" data-style="HipHop Choreo" data-desc="Победительница городских баттлов. Ставит мощные постановки и уверенно ведет учениц к сцене." data-video="https://www.youtube.com/embed/8uQO2UyGdRg">
-          <div class="trainer-photo">KN</div>
+        <article class="trainer-card reveal" data-name="Кира Новикова" data-style="HipHop Choreo" data-desc="Победительница городских баттлов. Ставит мощные постановки и уверенно ведет учениц к сцене." data-video="https://www.youtube.com/embed/8uQO2UyGdRg">
+          <div class="trainer-photo">
+            <span class="trainer-initials">KN</span>
+            <span class="trainer-badge">🏆 Чемпион</span>
+          </div>
           <div class="trainer-meta">
             <div class="trainer-name">Кира Новикова</div>
             <div class="trainer-style">HipHop Choreo</div>
+            <div class="trainer-exp">5+ лет опыта</div>
           </div>
         </article>
-        <article class="trainer-card" data-name="Вика Романова" data-style="High Heels" data-desc="Развивает уверенность, пластику и чистую технику. Акцент на женственности и внутренней силе." data-video="https://www.youtube.com/embed/4Z9mF0V4UTU">
-          <div class="trainer-photo">VR</div>
+        <article class="trainer-card reveal" data-name="Вика Романова" data-style="High Heels" data-desc="Развивает уверенность, пластику и чистую технику. Акцент на женственности и внутренней силе." data-video="https://www.youtube.com/embed/4Z9mF0V4UTU">
+          <div class="trainer-photo">
+            <span class="trainer-initials">VR</span>
+            <span class="trainer-badge">👠 High Heels</span>
+          </div>
           <div class="trainer-meta">
             <div class="trainer-name">Вика Романова</div>
             <div class="trainer-style">High Heels</div>
+            <div class="trainer-exp">7+ лет опыта</div>
           </div>
         </article>
-        <article class="trainer-card" data-name="Мила Яровая" data-style="Contemporary" data-desc="Работает с эмоцией и дыханием, помогает раскрыть индивидуальный стиль и сценичность." data-video="https://www.youtube.com/embed/Y8m1c9lVZ1k">
-          <div class="trainer-photo">MY</div>
+        <article class="trainer-card reveal" data-name="Мила Яровая" data-style="Contemporary" data-desc="Работает с эмоцией и дыханием, помогает раскрыть индивидуальный стиль и сценичность." data-video="https://www.youtube.com/embed/Y8m1c9lVZ1k">
+          <div class="trainer-photo">
+            <span class="trainer-initials">MY</span>
+            <span class="trainer-badge">🌊 Contemporary</span>
+          </div>
           <div class="trainer-meta">
             <div class="trainer-name">Мила Яровая</div>
             <div class="trainer-style">Contemporary</div>
+            <div class="trainer-exp">6+ лет опыта</div>
           </div>
         </article>
-        <article class="trainer-card" data-name="Эля М" data-style="Electro Dance" data-desc="Электро-вайб, точные акценты и энергия баттлов. Помогает быстро прокачать динамику и контроль." data-video="https://www.youtube.com/embed/V0kzG0J3qI0">
-          <div class="trainer-photo">EM</div>
+        <article class="trainer-card reveal" data-name="Эля М" data-style="Electro Dance" data-desc="Электро-вайб, точные акценты и энергия баттлов. Помогает быстро прокачать динамику и контроль." data-video="https://www.youtube.com/embed/V0kzG0J3qI0">
+          <div class="trainer-photo">
+            <span class="trainer-initials">EM</span>
+            <span class="trainer-badge">⚡ Electro</span>
+          </div>
           <div class="trainer-meta">
             <div class="trainer-name">Эля М</div>
             <div class="trainer-style">Electro Dance</div>
+            <div class="trainer-exp">4+ года опыта</div>
           </div>
         </article>
       </div>
