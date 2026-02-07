@@ -780,11 +780,17 @@ h3 {
   padding: 0 0 80px;
 }
 
+.reviews .section-head {
+  justify-content: center;
+}
+
+.reviews .slider {
+  justify-content: center;
+}
+
 .slider {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(280px, 1fr);
-  gap: 24px;
+  display: flex;
+  gap: 16px;
   overflow-x: auto;
   overflow-y: hidden;
   padding: 0 6vw 10px;
@@ -809,6 +815,9 @@ h3 {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
   border: 1px solid rgba(255, 255, 255, 0.12);
   min-height: 180px;
+  min-width: 280px;
+  width: 280px;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -1067,19 +1076,31 @@ h3 {
   padding: 0 0 80px;
 }
 
+.trainers .section-head {
+  justify-content: center;
+}
+
+.trainers .slider {
+  justify-content: center;
+}
+
 .trainer-card {
   position: relative;
   padding: 24px;
   border-radius: 24px;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  min-width: 260px;
+  min-width: 300px;
+  width: 300px;
+  flex-shrink: 0;
   cursor: pointer;
   transition: all 0.3s ease;
   scroll-snap-align: start;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .trainer-card::before {
@@ -1116,7 +1137,7 @@ h3 {
 .trainer-photo {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 400px;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -1125,6 +1146,7 @@ h3 {
   background: linear-gradient(135deg, rgba(227, 242, 253, 0.3), rgba(100, 181, 246, 0.25));
   margin-bottom: 16px;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .trainer-initials {
@@ -1137,6 +1159,15 @@ h3 {
   background-clip: text;
 }
 
+.trainer-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .trainer-badge {
   position: absolute;
   bottom: 12px;
@@ -1145,32 +1176,47 @@ h3 {
   border-radius: 999px;
   background: rgba(14, 10, 22, 0.9);
   backdrop-filter: blur(10px);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+  max-width: calc(100% - 24px);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .trainer-meta {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  flex: 1;
+  min-width: 0;
 }
 
 .trainer-name {
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .trainer-style {
   color: var(--blue);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .trainer-exp {
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .trainer-note {
@@ -1657,7 +1703,7 @@ h3 {
   }
 
   .slider {
-    grid-auto-columns: minmax(280px, 1fr);
+    gap: 14px;
   }
 }
 
@@ -1799,7 +1845,7 @@ h3 {
 
   .slider {
     padding: 0 5vw 10px;
-    gap: 16px;
+    gap: 14px;
   }
 
   .trial-grid {
@@ -1817,9 +1863,22 @@ h3 {
   }
 
   .review-card,
-  .trainer-card,
   .schedule-card {
-    min-width: 280px;
+    min-width: 260px;
+  }
+
+  .trainer-card {
+    min-width: 260px;
+    width: 260px;
+    padding: 20px;
+  }
+
+  .trainer-photo {
+    height: 350px;
+  }
+
+  .trainer-initials {
+    font-size: 2.4rem;
   }
 
   .modal-content {
@@ -1903,7 +1962,39 @@ h3 {
 
   .slider {
     padding: 0 4vw 10px;
-    grid-auto-columns: minmax(260px, 85vw);
+    gap: 12px;
+  }
+
+  .trainer-card {
+    min-width: 240px;
+    width: 240px;
+    padding: 16px;
+  }
+
+  .trainer-photo {
+    height: 320px;
+    border-radius: 16px;
+  }
+
+  .trainer-initials {
+    font-size: 2rem;
+  }
+
+  .trainer-name {
+    font-size: 0.9rem;
+  }
+
+  .trainer-style {
+    font-size: 0.78rem;
+  }
+
+  .trainer-exp {
+    font-size: 0.75rem;
+  }
+
+  .trainer-badge {
+    font-size: 0.65rem;
+    padding: 4px 8px;
   }
 
   .tag {

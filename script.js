@@ -67,34 +67,9 @@ const modalStyle = document.getElementById("modal-style");
 const modalDesc = document.getElementById("modal-desc");
 const modalAvatar = document.getElementById("modal-avatar");
 const modalVideo = document.getElementById("modal-video");
-const modalTabs = document.querySelectorAll(".modal-tab");
 
 const trainerCards = document.querySelectorAll(".trainer-card");
 const directionCards = document.querySelectorAll(".direction");
-
-const firstTrainerCard = trainerCards[0];
-const firstDirectionCard = directionCards[0];
-
-const defaults = {
-  trainer: {
-    name: firstTrainerCard?.dataset.name || "Тренер",
-    style: firstTrainerCard?.dataset.style || "Тренер",
-    desc: firstTrainerCard?.dataset.desc || "Информация скоро появится.",
-    video: firstTrainerCard?.dataset.video || "",
-  },
-  direction: {
-    name: firstDirectionCard?.dataset.name || firstDirectionCard?.textContent?.trim() || "Направление",
-    style: "Направление",
-    desc: firstDirectionCard?.dataset.desc || "Описание направления скоро появится.",
-    video: firstDirectionCard?.dataset.video || "",
-  },
-};
-
-const state = {
-  activeTab: "trainer",
-  trainer: { ...defaults.trainer },
-  direction: { ...defaults.direction },
-};
 
 const openModal = () => {
   infoModal.classList.add("open");
@@ -115,57 +90,34 @@ const initials = (label) =>
     .slice(0, 2)
     .toUpperCase();
 
-const setActiveTab = (tab) => {
-  state.activeTab = tab;
-  modalTabs.forEach((item) => {
-    const isActive = item.dataset.tab === tab;
-    item.classList.toggle("is-active", isActive);
-    item.setAttribute("aria-selected", String(isActive));
-  });
-};
-
-const renderModal = () => {
-  const active = state.activeTab;
-  const data = state[active];
-  modalName.textContent = data.name;
-  modalStyle.textContent = active === "trainer" ? data.style : "Направление";
-  modalDesc.textContent = data.desc;
-  modalAvatar.textContent = initials(data.name);
-  modalVideo.src = data.video;
-};
-
 trainerCards.forEach((card) => {
   card.addEventListener("click", () => {
-    state.trainer = {
-      name: card.dataset.name || "Тренер",
-      style: card.dataset.style || "Тренер",
-      desc: card.dataset.desc || "Информация скоро появится.",
-      video: card.dataset.video || "",
-    };
-    setActiveTab("trainer");
-    renderModal();
+    const name = card.dataset.name || "Тренер";
+    const style = card.dataset.style || "";
+    const desc = card.dataset.desc || "Информация скоро появится.";
+    const video = card.dataset.video || "";
+    
+    modalName.textContent = name;
+    modalStyle.textContent = style;
+    modalDesc.textContent = desc;
+    modalAvatar.textContent = initials(name);
+    modalVideo.src = video;
     openModal();
   });
 });
 
 directionCards.forEach((card) => {
   card.addEventListener("click", () => {
-    state.direction = {
-      name: card.dataset.name || card.textContent.trim(),
-      style: "Направление",
-      desc: card.dataset.desc || "Описание направления скоро появится.",
-      video: card.dataset.video || "",
-    };
-    setActiveTab("direction");
-    renderModal();
+    const name = card.dataset.name || card.textContent.trim();
+    const desc = card.dataset.desc || "Описание направления скоро появится.";
+    const video = card.dataset.video || "";
+    
+    modalName.textContent = name;
+    modalStyle.textContent = "Танцевальное направление";
+    modalDesc.textContent = desc;
+    modalAvatar.textContent = initials(name);
+    modalVideo.src = video;
     openModal();
-  });
-});
-
-modalTabs.forEach((tab) => {
-  tab.addEventListener("click", () => {
-    setActiveTab(tab.dataset.tab);
-    renderModal();
   });
 });
 
