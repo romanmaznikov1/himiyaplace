@@ -1664,6 +1664,7 @@ h3 {
 
   .hero-content {
     gap: 20px;
+    align-items: center;
   }
 
   .hero-stats {
@@ -1677,6 +1678,7 @@ h3 {
 
   .hero-actions {
     flex-direction: column;
+    align-items: center;
   }
 
   h1 {
@@ -1745,6 +1747,7 @@ h3 {
   .hero-actions {
     width: 100%;
     flex-direction: column;
+    align-items: center;
     gap: 12px;
   }
 
