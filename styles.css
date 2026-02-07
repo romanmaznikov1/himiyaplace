@@ -786,9 +786,10 @@ h3 {
 
 .reviews-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(220px, 1fr));
   gap: 16px;
   padding: 0 6vw;
+  justify-items: center;
 }
 
 .slider {
@@ -818,6 +819,8 @@ h3 {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
   border: 1px solid rgba(255, 255, 255, 0.12);
   min-height: 180px;
+  width: 100%;
+  max-width: 320px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -1854,8 +1857,8 @@ h3 {
   }
 
   .reviews-grid .review-card {
-    min-width: 260px;
-    max-width: 300px;
+    width: 280px;
+    max-width: 320px;
     min-height: 220px;
     flex-shrink: 0;
     scroll-snap-align: start;
