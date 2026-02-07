@@ -1854,7 +1854,9 @@ h3 {
   }
 
   .reviews-grid .review-card {
-    min-width: 280px;
+    min-width: 260px;
+    max-width: 300px;
+    min-height: 220px;
     flex-shrink: 0;
     scroll-snap-align: start;
   }
