@@ -94,6 +94,7 @@ h3 {
   min-height: 85vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 @supports(padding: max(0px)) {
@@ -135,6 +136,7 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .hero-logo-bg {
@@ -246,7 +248,7 @@ h3 {
 
 .hero-title-line {
   font-family: "Unbounded", sans-serif;
-  font-size: clamp(8rem, 25vw, 20rem);
+  font-size: clamp(4rem, 18vw, 14rem);
   font-weight: 700;
   background: linear-gradient(
     135deg,
@@ -1677,8 +1679,10 @@ h3 {
   }
 
   .hero-actions {
+    width: 100%;
     flex-direction: column;
     align-items: center;
+    gap: 12px;
   }
 
   .hero-title-line {
@@ -1688,6 +1692,26 @@ h3 {
   .hero-deco {
     width: 80px;
     height: 80px;
+  }
+
+  .hero-deco-1 {
+    top: -30px;
+    left: -30px;
+  }
+
+  .hero-deco-2 {
+    top: -40px;
+    right: -30px;
+  }
+
+  .hero-deco-3 {
+    bottom: -20px;
+    left: -30px;
+  }
+
+  .hero-deco-4 {
+    bottom: -30px;
+    right: -30px;
   }
 
   h1 {
@@ -1753,21 +1777,17 @@ h3 {
     font-size: 1rem;
   }
 
-  .hero-actions {
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-
   .neon-card {
     padding: 24px 20px;
   }
 
   .advantages {
+    padding: 0 5vw 60px;
+  }
+
+  .advantages-grid {
     grid-template-columns: 1fr;
     gap: 16px;
-    padding: 0 5vw 60px;
   }
 
   .adv-card {
@@ -1841,6 +1861,26 @@ h3 {
   .hero-deco {
     width: 60px;
     height: 60px;
+  }
+
+  .hero-deco-1 {
+    top: -20px;
+    left: -15px;
+  }
+
+  .hero-deco-2 {
+    top: -25px;
+    right: -15px;
+  }
+
+  .hero-deco-3 {
+    bottom: -15px;
+    left: -15px;
+  }
+
+  .hero-deco-4 {
+    bottom: -20px;
+    right: -15px;
   }
 
   .section-head,
