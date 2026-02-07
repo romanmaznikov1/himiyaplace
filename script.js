@@ -45,8 +45,18 @@ buttons.forEach((btn) => {
 sliders.forEach((slider) => {
   slider.addEventListener("wheel", (event) => {
     if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
-      event.preventDefault();
-      slider.scrollBy({ left: event.deltaY, behavior: "smooth" });
+      const scrollLeft = slider.scrollLeft;
+      const maxScroll = slider.scrollWidth - slider.clientWidth;
+      const delta = event.deltaY;
+      
+      // Только перехватываем событие если слайдер может скроллиться в нужную сторону
+      const canScrollLeft = delta < 0 && scrollLeft > 0;
+      const canScrollRight = delta > 0 && scrollLeft < maxScroll;
+      
+      if (canScrollLeft || canScrollRight) {
+        event.preventDefault();
+        slider.scrollBy({ left: delta, behavior: "smooth" });
+      }
     }
   });
 });
