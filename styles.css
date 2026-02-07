@@ -1681,6 +1681,15 @@ h3 {
     align-items: center;
   }
 
+  .hero-title-line {
+    font-size: clamp(4rem, 20vw, 10rem);
+  }
+
+  .hero-deco {
+    width: 80px;
+    height: 80px;
+  }
+
   h1 {
     font-size: clamp(2rem, 10vw, 3.5rem);
   }
@@ -1823,6 +1832,15 @@ h3 {
 
   .hero {
     padding: 24px 4vw 50px;
+  }
+
+  .hero-title-line {
+    font-size: clamp(3rem, 18vw, 8rem);
+  }
+
+  .hero-deco {
+    width: 60px;
+    height: 60px;
   }
 
   .section-head,
