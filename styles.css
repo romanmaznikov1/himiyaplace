@@ -127,12 +127,14 @@ h3 {
   flex-direction: column;
   gap: 8px;
   line-height: 1;
+  align-items: center;
 }
 
 .hero-logo-wrapper {
   position: relative;
-  display: inline-block;
-  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-logo-bg {
@@ -179,38 +181,38 @@ h3 {
 }
 
 .hero-deco-1 {
-  width: 60px;
-  height: 60px;
+  width: 150px;
+  height: 150px;
   background: linear-gradient(135deg, var(--pink-strong), var(--pink));
-  top: -20px;
-  left: -40px;
+  top: -60px;
+  left: -100px;
   animation: dance1 6s ease-in-out infinite;
 }
 
 .hero-deco-2 {
-  width: 45px;
-  height: 45px;
+  width: 120px;
+  height: 120px;
   background: linear-gradient(135deg, var(--blue-strong), var(--blue));
-  top: -30px;
-  right: -30px;
+  top: -80px;
+  right: -80px;
   animation: dance2 7s ease-in-out infinite;
 }
 
 .hero-deco-3 {
-  width: 50px;
-  height: 50px;
+  width: 130px;
+  height: 130px;
   background: linear-gradient(135deg, var(--violet), var(--pink));
-  bottom: -10px;
-  left: -30px;
+  bottom: -40px;
+  left: -80px;
   animation: dance3 8s ease-in-out infinite;
 }
 
 .hero-deco-4 {
-  width: 55px;
-  height: 55px;
+  width: 140px;
+  height: 140px;
   background: linear-gradient(135deg, var(--pink-strong), var(--blue-strong));
-  bottom: -20px;
-  right: -40px;
+  bottom: -60px;
+  right: -100px;
   animation: dance4 9s ease-in-out infinite;
 }
 
@@ -244,7 +246,7 @@ h3 {
 
 .hero-title-line {
   font-family: "Unbounded", sans-serif;
-  font-size: clamp(3.5rem, 12vw, 7rem);
+  font-size: clamp(8rem, 25vw, 20rem);
   font-weight: 700;
   background: linear-gradient(
     135deg,
@@ -1334,7 +1336,8 @@ h3 {
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: var(--text);
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.875rem;
+  word-break: break-all;
   transition: background 0.2s ease, transform 0.15s ease;
   -webkit-tap-highlight-color: transparent;
 }
