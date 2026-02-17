@@ -47,7 +47,7 @@ sliders.forEach((slider) => {
     if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
       const scrollLeft = slider.scrollLeft;
       const maxScroll = slider.scrollWidth - slider.clientWidth;
-      const delta = event.deltaY;
+      const delta = event.deltaY * 0.6; // Уменьшаем скорость для плавности
       
       // Только перехватываем событие если слайдер может скроллиться в нужную сторону
       const canScrollLeft = delta < 0 && scrollLeft > 0;
