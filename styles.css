@@ -542,7 +542,7 @@ h3 {
 
 .advantages-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
 }
 
@@ -1576,6 +1576,11 @@ h3 {
   .trial-card--main {
     grid-column: 1 / -1;
   }
+
+  .advantages-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
 }
 
 @media (max-width: 960px) {
@@ -1610,6 +1615,11 @@ h3 {
     transform: translateY(-20px);
     transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
     pointer-events: none;
+  }
+
+  .advantages-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
   }
 
   .nav-links.active {
