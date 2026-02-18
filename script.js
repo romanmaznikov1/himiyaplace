@@ -67,6 +67,8 @@ const modalStyle = document.getElementById("modal-style");
 const modalDesc = document.getElementById("modal-desc");
 const modalAvatar = document.getElementById("modal-avatar");
 const modalVideo = document.getElementById("modal-video");
+const modalVideoLocal = document.getElementById("modal-video-local");
+const modalVideoWrap = document.querySelector(".modal-video-wrap");
 
 const trainerCards = document.querySelectorAll(".trainer-card");
 const directionCards = document.querySelectorAll(".direction");
@@ -80,6 +82,11 @@ const closeModal = () => {
   infoModal.classList.remove("open");
   infoModal.setAttribute("aria-hidden", "true");
   modalVideo.src = "";
+  if (modalVideoLocal) {
+    modalVideoLocal.pause();
+    modalVideoLocal.src = "";
+  }
+  if (modalVideoWrap) modalVideoWrap.classList.remove("modal-video-wrap--local");
 };
 
 const initials = (label) =>
@@ -96,12 +103,23 @@ trainerCards.forEach((card) => {
     const style = card.dataset.style || "";
     const desc = card.dataset.desc || "Информация скоро появится.";
     const video = card.dataset.video || "";
-    
+
     modalName.textContent = name;
     modalStyle.textContent = style;
     modalDesc.textContent = desc;
     modalAvatar.textContent = initials(name);
-    modalVideo.src = video;
+
+    const isLocalVideo = video && (video.endsWith(".mp4") || video.startsWith("videos/"));
+    if (isLocalVideo && modalVideoLocal && modalVideoWrap) {
+      modalVideo.src = "";
+      modalVideoWrap.classList.add("modal-video-wrap--local");
+      modalVideoLocal.src = video;
+      modalVideoLocal.play().catch(() => {});
+    } else {
+      modalVideoWrap.classList.remove("modal-video-wrap--local");
+      modalVideoLocal.src = "";
+      modalVideo.src = video;
+    }
     openModal();
   });
 });
@@ -111,22 +129,30 @@ directionCards.forEach((card) => {
     const name = card.dataset.name || card.textContent.trim();
     const desc = card.dataset.desc || "Описание направления скоро появится.";
     const video = card.dataset.video || "";
-    
+
     modalName.textContent = name;
     modalStyle.textContent = "Танцевальное направление";
     modalDesc.textContent = desc;
     modalAvatar.textContent = initials(name);
+
+    if (modalVideoWrap) modalVideoWrap.classList.remove("modal-video-wrap--local");
+    if (modalVideoLocal) {
+      modalVideoLocal.pause();
+      modalVideoLocal.src = "";
+    }
     modalVideo.src = video;
     openModal();
   });
 });
 
 const closeButton = document.querySelector(".modal-close");
-closeButton.addEventListener("click", closeModal);
+if (closeButton) closeButton.addEventListener("click", closeModal);
 
-infoModal.addEventListener("click", (event) => {
-  if (event.target === infoModal) closeModal();
-});
+if (infoModal) {
+  infoModal.addEventListener("click", (event) => {
+    if (event.target === infoModal) closeModal();
+  });
+}
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && infoModal.classList.contains("open")) closeModal();
@@ -147,4 +173,23 @@ const revealObserver = new IntersectionObserver(
 revealItems.forEach((item, index) => {
   item.style.transitionDelay = `${Math.min(index * 28, 180)}ms`;
   revealObserver.observe(item);
+});
+
+// Image fallback: show initials when image fails to load
+document.querySelectorAll('.trainer-photo img.trainer-image').forEach((img) => {
+  img.addEventListener('error', () => {
+    const photo = img.closest('.trainer-photo');
+    if (!photo) return;
+    // hide broken img
+    img.style.display = 'none';
+    // if fallback already exists, do nothing
+    if (photo.querySelector('.trainer-fallback')) return;
+    const card = img.closest('.trainer-card');
+    const name = (card && card.dataset.name) ? card.dataset.name : '';
+    const div = document.createElement('div');
+    div.className = 'trainer-fallback';
+    div.textContent = initials(name || '');
+    div.style.cssText = 'display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-weight:700;background:linear-gradient(135deg, rgba(100,181,246,0.12), rgba(33,150,243,0.08));border-radius:8px;color:var(--text);';
+    photo.insertBefore(div, photo.firstChild);
+  });
 });
