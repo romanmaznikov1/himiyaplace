@@ -19,7 +19,7 @@
   <header class="hero" id="top">
     <nav class="nav reveal">
     <div class="logo">Химия</div>
-      <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-label="Открыть меню">
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav-links">
         <span></span>
         <span></span>
         <span></span>
@@ -222,73 +222,61 @@
           <span class="dir-emoji">🔥</span>
           <span class="dir-name">HipHop</span>
           <span class="dir-desc">Базовые шаги и чувство ритма</span>
-          <span class="dir-tag dir-tag--start">старт</span>
         </button>
         <button class="direction" type="button" data-name="HipHop Choreo" data-desc="Постановочная хореография в стиле хип-хоп: четкие связки, акценты и сценическая подача." data-video="https://www.youtube.com/embed/ZWk19OVon2k">
           <span class="dir-emoji">🎬</span>
           <span class="dir-name">HipHop хорео</span>
           <span class="dir-desc">Чёткие связки, акценты и подача</span>
-          <span class="dir-tag">средний</span>
         </button>
         <button class="direction" type="button" data-name="HipHop Kids" data-desc="Детский формат: координация, музыкальность и физическая база в комфортном темпе." data-video="https://www.youtube.com/embed/9No-FiEInLA">
           <span class="dir-emoji">🌟</span>
           <span class="dir-name">HipHop дети</span>
           <span class="dir-desc">Координация и музыкальность для детей</span>
-          <span class="dir-tag dir-tag--start">5–10 лет</span>
         </button>
         <button class="direction" type="button" data-name="HipHop Freestyle" data-desc="Импровизация и личный стиль: учимся слышать музыку и свободно выражать себя в танце." data-video="https://www.youtube.com/embed/C_Hv7I0iX2s">
           <span class="dir-emoji">⚡</span>
           <span class="dir-name">HipHop импровизация</span>
           <span class="dir-desc">Импровизация и личный стиль</span>
-          <span class="dir-tag dir-tag--pro">продвинутый</span>
         </button>
-        <button class="direction direction--accent" type="button" data-name="High Heels" data-desc="Техника на каблуках: баланс, пластика, уверенность и женственная сценическая подача." data-video="https://www.youtube.com/embed/qf5M7ha3YRo">
+        <button class="direction" type="button" data-name="High Heels" data-desc="Техника на каблуках: баланс, пластика, уверенность и женственная сценическая подача." data-video="https://www.youtube.com/embed/qf5M7ha3YRo">
           <span class="dir-emoji">👠</span>
           <span class="dir-name">High Heels</span>
           <span class="dir-desc">Баланс, пластика и женственность</span>
-          <span class="dir-tag">средний</span>
         </button>
         <button class="direction" type="button" data-name="Afro Choreo" data-desc="Энергичный стиль с афро-ритмами: работа корпуса, драйв и сильная эмоциональная подача." data-video="https://www.youtube.com/embed/F6f6M2M2R7M">
           <span class="dir-emoji">🌍</span>
           <span class="dir-name">Афро танец</span>
           <span class="dir-desc">Драйв, ритм и мощная энергетика</span>
-          <span class="dir-tag">средний</span>
         </button>
-        <button class="direction direction--accent" type="button" data-name="Girly HipHop" data-desc="Микс хип-хоп базы и женственной манеры: мягкие линии, акценты и яркий стиль." data-video="https://www.youtube.com/embed/6f0u4Q9t7b0">
+        <button class="direction" type="button" data-name="Girly HipHop" data-desc="Микс хип-хоп базы и женственной манеры: мягкие линии, акценты и яркий стиль." data-video="https://www.youtube.com/embed/6f0u4Q9t7b0">
           <span class="dir-emoji">💫</span>
           <span class="dir-name">Женственный HipHop</span>
           <span class="dir-desc">Мягкие линии и яркий стиль</span>
-          <span class="dir-tag dir-tag--start">старт</span>
         </button>
         <button class="direction" type="button" data-name="Contemporary" data-desc="Современная хореография про эмоции и контроль тела: пластика, дыхание и выразительность." data-video="https://www.youtube.com/embed/gvM7g5YxG6Y">
           <span class="dir-emoji">🌊</span>
           <span class="dir-name">Contemporary</span>
           <span class="dir-desc">Эмоции, пластика и контроль тела</span>
-          <span class="dir-tag">средний</span>
         </button>
         <button class="direction" type="button" data-name="Electro Dance" data-desc="Динамичное направление: точные акценты рук, футворк и мощная энергетика баттлов." data-video="https://www.youtube.com/embed/0fBhy88A3Ac">
           <span class="dir-emoji">⚙️</span>
           <span class="dir-name">Электро</span>
           <span class="dir-desc">Точные акценты и энергетика баттлов</span>
-          <span class="dir-tag dir-tag--pro">продвинутый</span>
         </button>
         <button class="direction" type="button" data-name="ОФП" data-desc="Общая физическая подготовка для танцоров: сила, выносливость, координация и безопасная техника." data-video="https://www.youtube.com/embed/CBWQgb4K5D0">
           <span class="dir-emoji">💪</span>
           <span class="dir-name">ОФП</span>
-          <span class="dir-desc">Общая физическая подготовка для силы, выносливости и координации</span>
-          <span class="dir-tag dir-tag--start">все уровни</span>
+          <span class="dir-desc">Сила, выносливость и координация</span>
         </button>
         <button class="direction" type="button" data-name="Пилатес" data-desc="Осознанная работа с телом: осанка, контроль центра и укрепление мышц-стабилизаторов." data-video="https://www.youtube.com/embed/lCg_gh_fppI">
           <span class="dir-emoji">🧘</span>
           <span class="dir-name">Пилатес</span>
           <span class="dir-desc">Осанка и контроль центра тела</span>
-          <span class="dir-tag dir-tag--start">все уровни</span>
         </button>
         <button class="direction" type="button" data-name="Stretching" data-desc="Растяжка для гибкости, красивых линий и быстрого восстановления после тренировок." data-video="https://www.youtube.com/embed/JeN5X2WnUaw">
           <span class="dir-emoji">🤸</span>
           <span class="dir-name">Растяжка</span>
           <span class="dir-desc">Гибкость и красивые линии</span>
-          <span class="dir-tag dir-tag--start">все уровни</span>
         </button>
       </div>
     </section>
