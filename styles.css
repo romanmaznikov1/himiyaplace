@@ -1096,6 +1096,16 @@ h3 {
 
 .trainers .section-head {
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.trainers-hint-sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+  letter-spacing: 0.03em;
 }
 
 .trainer-card {
@@ -1162,6 +1172,8 @@ h3 {
   overflow: hidden;
   flex-shrink: 0;
 }
+
+
 
 .trainer-initials {
   font-size: 3rem;
@@ -1239,6 +1251,27 @@ h3 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.trainer-meta::after {
+  content: '▶ Смотреть видео';
+  display: inline-flex;
+  align-items: center;
+  margin-top: 10px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(100, 181, 246, 0.12);
+  border: 1px solid rgba(100, 181, 246, 0.3);
+  color: var(--blue);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: background 0.2s ease;
+  align-self: flex-start;
+}
+
+.trainer-card:hover .trainer-meta::after {
+  background: rgba(100, 181, 246, 0.22);
 }
 
 .trainer-note {
