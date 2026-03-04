@@ -1505,8 +1505,7 @@ h3 {
   font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease;
-  margin-top: 12px;
-  width: fit-content;
+  width: 340px;
   position: relative;
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(131, 58, 180, 0.3);
@@ -1573,6 +1572,94 @@ h3 {
 }
 
 .btn-instagram:hover .btn-instagram-arrow {
+  transform: translateX(4px);
+}
+
+.social-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.btn-telegram {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 28px;
+  background: linear-gradient(135deg, #0088cc, #229ED9, #00b4d8);
+  border-radius: 16px;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  width: 340px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 136, 204, 0.3);
+}
+
+.btn-telegram::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #0099e6, #35bbf0, #00d4ff);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-telegram:hover::before {
+  opacity: 1;
+}
+
+.btn-telegram:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 136, 204, 0.5);
+}
+
+.btn-telegram > * {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-telegram-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-telegram-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.btn-telegram-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+}
+
+.btn-telegram-main {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.btn-telegram-sub {
+  font-size: 0.75rem;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+.btn-telegram-arrow {
+  font-size: 1.5rem;
+  margin-left: auto;
+  transition: transform 0.3s ease;
+}
+
+.btn-telegram:hover .btn-telegram-arrow {
   transform: translateX(4px);
 }
 
@@ -2200,17 +2287,25 @@ h3 {
     font-size: 0.95rem;
   }
 
-  .btn-instagram {
+  .social-btns {
+    align-items: center;
+  }
+
+  .btn-instagram,
+  .btn-telegram {
     padding: 18px 24px;
     width: 100%;
+    max-width: 100%;
     justify-content: center;
   }
 
-  .btn-instagram-main {
+  .btn-instagram-main,
+  .btn-telegram-main {
     font-size: 1rem;
   }
 
-  .btn-instagram-arrow {
+  .btn-instagram-arrow,
+  .btn-telegram-arrow {
     display: none;
   }
 
@@ -2437,11 +2532,13 @@ h3 {
     box-shadow: 0 12px 40px rgba(131, 58, 180, 0.25);
   }
 
-  .btn-instagram {
+  .btn-instagram,
+  .btn-telegram {
     padding: 16px 20px;
   }
 
-  .btn-instagram-icon {
+  .btn-instagram-icon,
+  .btn-telegram-icon {
     width: 24px;
     height: 24px;
   }
