@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <defs>
+    <linearGradient id="gClap" x1="10" y1="18" x2="70" y2="68" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4A4A5A"/><stop offset="100%" stop-color="#2A2A38"/></linearGradient>
+  </defs>
+  <rect x="12" y="14" width="56" height="14" rx="3" fill="url(#gClap)" transform="rotate(-6 40 21)"/>
+  <rect x="18" y="14" width="7" height="14" rx="1" fill="#F0EDE8" opacity="0.8" transform="rotate(-6 40 21)"/>
+  <rect x="32" y="14" width="7" height="14" rx="1" fill="#F0EDE8" opacity="0.8" transform="rotate(-6 40 21)"/>
+  <rect x="46" y="14" width="7" height="14" rx="1" fill="#F0EDE8" opacity="0.8" transform="rotate(-6 40 21)"/>
+  <rect x="60" y="14" width="5" height="14" rx="1" fill="#F0EDE8" opacity="0.8" transform="rotate(-6 40 21)"/>
+  <rect x="12" y="30" width="56" height="36" rx="4" fill="url(#gClap)"/>
+  <rect x="20" y="40" width="28" height="2.5" rx="1.25" fill="#6B6B7A" opacity="0.5"/>
+  <rect x="20" y="47" width="20" height="2.5" rx="1.25" fill="#6B6B7A" opacity="0.4"/>
+  <rect x="20" y="54" width="24" height="2.5" rx="1.25" fill="#6B6B7A" opacity="0.3"/>
+  <path d="M56 44 l-8 6 v-12 Z" fill="#FF6B6B" opacity="0.7"/>
+</svg>

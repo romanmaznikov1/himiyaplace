@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <defs>
+    <linearGradient id="gVid" x1="8" y1="22" x2="54" y2="58" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FF8A8A"/><stop offset="100%" stop-color="#E63946"/></linearGradient>
+    <filter id="shVid" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#E63946" flood-opacity="0.2"/></filter>
+  </defs>
+  <rect x="8" y="24" width="46" height="32" rx="6" fill="url(#gVid)" filter="url(#shVid)"/>
+  <circle cx="31" cy="40" r="8" stroke="#FFB3B3" stroke-width="2" fill="none" opacity="0.4"/>
+  <circle cx="31" cy="40" r="3" fill="#FFB3B3" opacity="0.3"/>
+  <path d="M54 32 L70 22 Q74 20 74 24 V56 Q74 60 70 58 L54 48" fill="#C81D31"/>
+  <circle cx="18" cy="32" r="3" fill="#FF4444" opacity="0.8"/>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <defs>
+    <linearGradient id="gEnv" x1="8" y1="18" x2="72" y2="62" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7DD3FC"/><stop offset="100%" stop-color="#0284C7"/></linearGradient>
+    <filter id="shEnv" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0284C7" flood-opacity="0.2"/></filter>
+  </defs>
+  <rect x="8" y="22" width="64" height="40" rx="6" fill="url(#gEnv)" filter="url(#shEnv)"/>
+  <path d="M8 24 L40 46 L72 24" stroke="#BAE6FD" stroke-width="2.5" fill="none" opacity="0.6"/>
+  <path d="M8 60 L30 44" stroke="#BAE6FD" stroke-width="1.5" fill="none" opacity="0.25"/>
+  <path d="M72 60 L50 44" stroke="#BAE6FD" stroke-width="1.5" fill="none" opacity="0.25"/>
+  <circle cx="40" cy="42" r="5" fill="#E0F2FE" opacity="0.3"/>
+</svg>

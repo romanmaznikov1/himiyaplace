@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <defs>
+    <linearGradient id="gSparkle1" x1="20" y1="8" x2="50" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFD166"/>
+      <stop offset="50%" stop-color="#F4A836"/>
+      <stop offset="100%" stop-color="#EF8C22"/>
+    </linearGradient>
+    <linearGradient id="gSparkle2" x1="48" y1="28" x2="72" y2="62" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFDF80"/>
+      <stop offset="100%" stop-color="#F4A836"/>
+    </linearGradient>
+    <linearGradient id="gSparkle3" x1="8" y1="44" x2="28" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFE8A3"/>
+      <stop offset="100%" stop-color="#F4A836"/>
+    </linearGradient>
+    <filter id="glowSpark" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Main large sparkle -->
+  <path d="M36 8 C38 24 38 24 54 28 C38 32 38 32 36 48 C34 32 34 32 18 28 C34 24 34 24 36 8Z" fill="url(#gSparkle1)" filter="url(#glowSpark)"/>
+  
+  <!-- Inner shine on main sparkle -->
+  <path d="M36 16 C37 24 37 24 46 28 C37 32 37 32 36 40 C35 32 35 32 26 28 C35 24 35 24 36 16Z" fill="#FFF4C2" opacity="0.35"/>
+
+  <!-- Second sparkle (right) -->
+  <path d="M60 34 C61 44 61 44 70 46 C61 48 61 48 60 58 C59 48 59 48 50 46 C59 44 59 44 60 34Z" fill="url(#gSparkle2)" filter="url(#glowSpark)"/>
+  
+  <!-- Inner shine on second sparkle -->
+  <path d="M60 38 C60.5 44 60.5 44 66 46 C60.5 48 60.5 48 60 52 C59.5 48 59.5 48 54 46 C59.5 44 59.5 44 60 38Z" fill="#FFF4C2" opacity="0.3"/>
+
+  <!-- Third sparkle (bottom-left) -->
+  <path d="M22 50 C23 58 23 58 30 60 C23 62 23 62 22 70 C21 62 21 62 14 60 C21 58 21 58 22 50Z" fill="url(#gSparkle3)" filter="url(#glowSpark)"/>
+
+  <!-- Tiny dot accents -->
+  <circle cx="50" cy="18" r="1.8" fill="#FFD166" opacity="0.7"/>
+  <circle cx="12" cy="40" r="1.4" fill="#FFD166" opacity="0.5"/>
+  <circle cx="68" cy="28" r="1.2" fill="#FFDF80" opacity="0.6"/>
+  <circle cx="42" cy="62" r="1.5" fill="#F4A836" opacity="0.5"/>
+</svg>

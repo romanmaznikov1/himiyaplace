@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <defs>
+    <linearGradient id="gPhone" x1="14" y1="14" x2="66" y2="66" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6EE7B7"/><stop offset="100%" stop-color="#059669"/></linearGradient>
+    <filter id="shPhone" x="-8%" y="-8%" width="116%" height="116%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#059669" flood-opacity="0.25"/></filter>
+  </defs>
+  <path d="M22 14 Q18 14 16 18 L14 24 Q12 30 16 34 L24 42 Q32 50 40 54 L48 58 Q52 60 56 58 L62 56 Q66 54 66 50 L66 44 Q66 40 62 40 L54 40 Q50 40 48 44 L46 48 Q38 44 32 38 L30 36 Q34 34 34 30 L34 22 Q34 18 30 16 Z" fill="url(#gPhone)" filter="url(#shPhone)"/>
+  <path d="M24 18 Q26 16 30 18" stroke="#D1FAE5" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+  <path d="M52 18 Q58 14 62 20" stroke="#A7F3D0" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.4"/>
+  <path d="M56 12 Q64 6 70 16" stroke="#A7F3D0" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.3"/>
+</svg>

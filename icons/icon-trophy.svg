@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <defs>
+    <linearGradient id="gTrophy" x1="20" y1="8" x2="60" y2="68" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F7C948"/>
+      <stop offset="50%" stop-color="#E8A817"/>
+      <stop offset="100%" stop-color="#D4940A"/>
+    </linearGradient>
+    <linearGradient id="gTrophyShine" x1="30" y1="10" x2="50" y2="50" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFF4C2" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#F7C948" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="gBase" x1="28" y1="58" x2="52" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#E8A817"/>
+      <stop offset="100%" stop-color="#C47F06"/>
+    </linearGradient>
+    <filter id="shadowTrophy" x="-10%" y="-5%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#D4940A" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Cup body -->
+  <path d="M24 14 h32 l-4 32 a10 10 0 0 1-10 8 h-4 a10 10 0 0 1-10-8 Z" fill="url(#gTrophy)" filter="url(#shadowTrophy)"/>
+  
+  <!-- Shine highlight -->
+  <path d="M30 16 h6 l-3 28 h-2 Z" fill="url(#gTrophyShine)" opacity="0.6"/>
+
+  <!-- Left handle -->
+  <path d="M24 20 Q12 20 12 32 Q12 42 22 42" stroke="url(#gTrophy)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  
+  <!-- Right handle -->
+  <path d="M56 20 Q68 20 68 32 Q68 42 58 42" stroke="url(#gTrophy)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Stem -->
+  <rect x="37" y="52" width="6" height="10" rx="2" fill="url(#gBase)"/>
+  
+  <!-- Base -->
+  <rect x="28" y="61" width="24" height="6" rx="3" fill="url(#gBase)"/>
+  
+  <!-- Star accent -->
+  <path d="M40 26 l2.2 4.5 5 .7 -3.6 3.5 .8 5 -4.4-2.3 -4.4 2.3 .8-5 -3.6-3.5 5-.7Z" fill="#FFF4C2" opacity="0.85"/>
+</svg>

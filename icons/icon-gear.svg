@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <defs>
+    <linearGradient id="gGear" x1="14" y1="14" x2="66" y2="66" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#94A3B8"/><stop offset="100%" stop-color="#64748B"/></linearGradient>
+    <filter id="shGear" x="-5%" y="-5%" width="110%" height="110%"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#475569" flood-opacity="0.3"/></filter>
+  </defs>
+  <path d="M36 10 h8 l1 6 a24 24 0 0 1 6.5 2.7 l4.5-4 5.7 5.7 -4 4.5 a24 24 0 0 1 2.7 6.5 l6 1 v8 l-6 1 a24 24 0 0 1-2.7 6.5 l4 4.5 -5.7 5.7 -4.5-4 a24 24 0 0 1-6.5 2.7 l-1 6 h-8 l-1-6 a24 24 0 0 1-6.5-2.7 l-4.5 4 -5.7-5.7 4-4.5 a24 24 0 0 1-2.7-6.5 l-6-1 v-8 l6-1 a24 24 0 0 1 2.7-6.5 l-4-4.5 5.7-5.7 4.5 4 a24 24 0 0 1 6.5-2.7 Z" fill="url(#gGear)" filter="url(#shGear)"/>
+  <circle cx="40" cy="40" r="12" fill="#1E293B"/>
+  <circle cx="40" cy="40" r="5" fill="url(#gGear)"/>
+  <ellipse cx="32" cy="28" rx="5" ry="3" fill="white" opacity="0.1" transform="rotate(-30 32 28)"/>
+</svg>

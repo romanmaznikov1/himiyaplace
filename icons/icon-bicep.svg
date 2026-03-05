@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <defs>
+    <linearGradient id="gArm" x1="16" y1="16" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FB923C"/><stop offset="100%" stop-color="#EA580C"/></linearGradient>
+    <filter id="shArm" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#EA580C" flood-opacity="0.2"/></filter>
+  </defs>
+  <path d="M20 62 Q16 54 18 44 L20 38 Q22 28 30 22 Q38 16 44 20 Q50 24 48 34 L46 40 Q52 38 56 40 Q62 44 60 52 Q58 58 52 60 Z" fill="url(#gArm)" filter="url(#shArm)"/>
+  <path d="M30 26 Q36 20 42 24 Q46 28 44 34" stroke="#FED7AA" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.4"/>
+  <path d="M34 34 Q38 30 42 34" stroke="#C2410C" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.3"/>
+  <path d="M52 44 Q56 42 58 46" stroke="#FED7AA" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.3"/>
+</svg>

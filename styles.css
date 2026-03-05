@@ -622,6 +622,20 @@ h3 {
   display: inline-block;
 }
 
+.icon {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon img {
+  width: 100%;
+  height: 100%;
+}
+
 .adv-title {
   font-size: 1.3rem;
   font-weight: 600;
@@ -705,6 +719,13 @@ h3 {
   place-items: center;
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.trial-card-icon img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
 }
 
 .trial-card h3 {
@@ -1010,6 +1031,17 @@ h3 {
 .dir-emoji {
   font-size: 2rem;
   line-height: 1;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.dir-emoji img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
 }
 
 .dir-name {
@@ -1304,6 +1336,18 @@ h3 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.schedule-studio-title img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  /* flex-shrink: 0;
+  -webkit-text-fill-color: initial; */
+  /* filter: brightness(0) saturate(100%) invert(75%) sepia(30%) saturate(500%) hue-rotate(185deg); */
 }
 
 .schedule-grid {
@@ -1463,6 +1507,14 @@ h3 {
 
 .instagram-feature-icon {
   font-size: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.instagram-feature-icon img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
 }
 
 .btn-instagram {
@@ -1684,6 +1736,13 @@ h3 {
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.08);
   margin-bottom: 4px;
+  flex-shrink: 0;
+}
+
+.contact-icon img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
 }
 
 .contact-card h3 {
@@ -2188,6 +2247,13 @@ h3 {
 
   .dir-emoji {
     font-size: 1.5rem;
+    width: 32px;
+    height: 32px;
+  }
+
+  .dir-emoji img {
+    width: 28px;
+    height: 28px;
   }
 
   .dir-name {
@@ -2467,6 +2533,12 @@ h3 {
 
   .adv-icon {
     font-size: 1.5rem;
+  }
+
+  .icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
   }
 
   .adv-title {

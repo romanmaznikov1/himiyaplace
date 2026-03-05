@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <defs>
+    <linearGradient id="gShaka" x1="12" y1="14" x2="68" y2="66" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FBBF24"/><stop offset="100%" stop-color="#D97706"/></linearGradient>
+  </defs>
+  <path d="M28 34 Q26 44 28 54 Q30 62 38 64 L52 64 Q58 62 58 54 L58 42 Q58 38 54 38 L48 38 Q46 38 46 36 L46 28 Q46 24 42 24 L40 24 Q36 24 36 28 L36 34" fill="url(#gShaka)"/>
+  <path d="M28 34 Q22 30 18 24 Q16 20 18 18 Q22 16 26 22 L28 28" fill="url(#gShaka)"/>
+  <path d="M58 42 Q62 36 66 30 Q68 26 66 24 Q62 22 60 28 L58 36" fill="url(#gShaka)"/>
+  <path d="M36 40 L36 54" stroke="#92400E" stroke-width="1" opacity="0.15"/>
+  <path d="M42 38 L42 54" stroke="#92400E" stroke-width="1" opacity="0.15"/>
+  <path d="M48 38 L48 54" stroke="#92400E" stroke-width="1" opacity="0.15"/>
+  <path d="M32 38 Q34 36 36 38" stroke="#FEF3C7" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+  <path d="M12 36 L8 34" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+  <path d="M12 44 L6 44" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+  <path d="M70 20 L74 18" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+  <path d="M72 28 L76 28" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+</svg>

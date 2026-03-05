@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <defs>
+    <linearGradient id="gPin" x1="22" y1="6" x2="58" y2="70" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FF8A8A"/><stop offset="100%" stop-color="#E63946"/></linearGradient>
+    <filter id="shPin" x="-10%" y="-5%" width="120%" height="115%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#E63946" flood-opacity="0.3"/></filter>
+  </defs>
+  <path d="M40 72 Q40 72 24 42 A20 20 0 1 1 56 42 Q40 72 40 72Z" fill="url(#gPin)" filter="url(#shPin)"/>
+  <circle cx="40" cy="30" r="10" fill="#FFF1F2" opacity="0.85"/>
+  <circle cx="40" cy="30" r="4" fill="#E63946" opacity="0.6"/>
+  <ellipse cx="34" cy="22" rx="5" ry="3" fill="white" opacity="0.15" transform="rotate(-25 34 22)"/>
+  <ellipse cx="40" cy="74" rx="8" ry="2" fill="#E63946" opacity="0.15"/>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <defs>
+    <linearGradient id="gCart" x1="14" y1="10" x2="66" y2="70" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F9A8D4"/><stop offset="100%" stop-color="#EC4899"/></linearGradient>
+  </defs>
+  <circle cx="56" cy="18" r="6" fill="url(#gCart)"/>
+  <path d="M52 24 Q44 32 36 44" stroke="url(#gCart)" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M48 28 Q54 36 58 48 Q60 54 58 60" stroke="url(#gCart)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  <path d="M48 28 Q42 20 36 14" stroke="url(#gCart)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  <path d="M36 44 Q28 36 22 26 Q20 22 18 18" stroke="url(#gCart)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  <path d="M36 44 Q32 52 28 60 Q26 64 24 66" stroke="url(#gCart)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  <line x1="52" y1="66" x2="66" y2="66" stroke="#FBCFE8" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+</svg>

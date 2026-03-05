@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <defs>
+    <linearGradient id="gGlobe" x1="14" y1="14" x2="66" y2="66" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#34D399"/><stop offset="100%" stop-color="#059669"/></linearGradient>
+    <filter id="shGlobe" x="-8%" y="-8%" width="116%" height="116%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#059669" flood-opacity="0.2"/></filter>
+  </defs>
+  <circle cx="40" cy="40" r="28" fill="url(#gGlobe)" filter="url(#shGlobe)"/>
+  <ellipse cx="40" cy="40" rx="12" ry="28" stroke="#A7F3D0" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <ellipse cx="40" cy="40" rx="28" ry="10" stroke="#A7F3D0" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <ellipse cx="40" cy="28" rx="24" ry="6" stroke="#A7F3D0" stroke-width="1" fill="none" opacity="0.25"/>
+  <ellipse cx="40" cy="52" rx="24" ry="6" stroke="#A7F3D0" stroke-width="1" fill="none" opacity="0.25"/>
+  <path d="M28 26 Q34 22 38 28 Q36 34 30 32 Z" fill="#6EE7B7" opacity="0.5"/>
+  <path d="M44 36 Q52 34 54 42 Q50 48 44 44 Z" fill="#6EE7B7" opacity="0.45"/>
+  <path d="M32 46 Q38 44 40 50 Q36 54 32 52 Z" fill="#6EE7B7" opacity="0.4"/>
+  <ellipse cx="30" cy="28" rx="6" ry="4" fill="white" opacity="0.1" transform="rotate(-20 30 28)"/>
+</svg>

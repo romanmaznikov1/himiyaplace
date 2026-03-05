@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <defs>
+    <linearGradient id="gBolt" x1="30" y1="6" x2="50" y2="74" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFE066"/><stop offset="50%" stop-color="#FFBE0B"/><stop offset="100%" stop-color="#E8A817"/>
+    </linearGradient>
+    <filter id="glowBolt" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <path d="M46 6 L22 38 h14 L28 74 58 36 H44 Z" fill="url(#gBolt)" filter="url(#glowBolt)"/>
+  <path d="M42 14 L30 34 h8 L34 58" stroke="#FFF8DB" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.35"/>
+</svg>
