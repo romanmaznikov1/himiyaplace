@@ -7,14 +7,12 @@ if (mobileMenuToggle && navLinks) {
     mobileMenuToggle.classList.add("active");
     navLinks.classList.add("active");
     mobileMenuToggle.setAttribute("aria-expanded", "true");
-    document.body.style.overflow = "hidden";
   };
 
   const closeMenu = () => {
     mobileMenuToggle.classList.remove("active");
     navLinks.classList.remove("active");
     mobileMenuToggle.setAttribute("aria-expanded", "false");
-    document.body.style.overflow = "";
   };
 
   mobileMenuToggle.addEventListener("click", () => {
@@ -26,9 +24,13 @@ if (mobileMenuToggle && navLinks) {
     link.addEventListener("click", closeMenu);
   });
 
-  // Close on backdrop click
-  navLinks.addEventListener("click", (e) => {
-    if (e.target === navLinks) closeMenu();
+  // Close on click outside
+  document.addEventListener("click", (e) => {
+    if (navLinks.classList.contains("active") &&
+        !navLinks.contains(e.target) &&
+        !mobileMenuToggle.contains(e.target)) {
+      closeMenu();
+    }
   });
 
   // Close on Escape
@@ -80,7 +82,6 @@ const modalVideoLocal = document.getElementById("modal-video-local");
 const modalVideoWrap = document.querySelector(".modal-video-wrap");
 
 const trainerCards = document.querySelectorAll(".trainer-card");
-const directionCards = document.querySelectorAll(".direction");
 
 const openModal = () => {
   infoModal.classList.add("open");
@@ -133,26 +134,6 @@ trainerCards.forEach((card) => {
   });
 });
 
-directionCards.forEach((card) => {
-  card.addEventListener("click", () => {
-    const name = card.dataset.name || card.textContent.trim();
-    const desc = card.dataset.desc || "Описание направления скоро появится.";
-    const video = card.dataset.video || "";
-
-    modalName.textContent = name;
-    modalStyle.textContent = "Танцевальное направление";
-    modalDesc.textContent = desc;
-    modalAvatar.textContent = initials(name);
-
-    if (modalVideoWrap) modalVideoWrap.classList.remove("modal-video-wrap--local");
-    if (modalVideoLocal) {
-      modalVideoLocal.pause();
-      modalVideoLocal.src = "";
-    }
-    modalVideo.src = video;
-    openModal();
-  });
-});
 
 const closeButton = document.querySelector(".modal-close");
 if (closeButton) closeButton.addEventListener("click", closeModal);
