@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow:
+
+Sitemap: https://himiyaplace.ru/sitemap.xml
+
+Host: himiyaplace.ru
