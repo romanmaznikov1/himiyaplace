@@ -36,6 +36,29 @@ for img in "$COACHES_DIR"/*.jpg; do
   echo "  Done: $basename"
 done
 
+for img in "$COACHES_DIR"/*.png; do
+  [ -f "$img" ] || continue
+  basename=$(basename "$img" .png)
+  echo "Processing: $basename"
+
+  # Move original to originals/ (copy if not already there)
+  if [ ! -f "$ORIGINALS_DIR/$basename.png" ]; then
+    cp "$img" "$ORIGINALS_DIR/$basename.png"
+  fi
+
+  # 600px wide (2x retina) JPEG
+  magick "$img" -resize 600x -quality 82 -strip "$OPTIMIZED_DIR/$basename.jpg"
+  # 300px wide (1x) JPEG
+  magick "$img" -resize 300x -quality 82 -strip "$OPTIMIZED_DIR/${basename}-300w.jpg"
+
+  # 600px wide WebP
+  magick "$img" -resize 600x -quality 80 -strip "$WEBP_DIR/$basename.webp"
+  # 300px wide WebP
+  magick "$img" -resize 300x -quality 80 -strip "$WEBP_DIR/${basename}-300w.webp"
+
+  echo "  Done: $basename"
+done
+
 echo ""
 echo "=== Optimizing logo ==="
 
