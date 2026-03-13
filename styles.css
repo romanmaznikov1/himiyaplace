@@ -91,7 +91,7 @@ h3 {
 }
 
 .hero {
-  padding: 36px 6vw 100px;
+  padding: 36px 6vw 40px;
   min-height: 85vh;
   display: flex;
   flex-direction: column;
@@ -338,7 +338,7 @@ h3 {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 64px;
+  margin-bottom: 40px;
   position: relative;
   z-index: 110;
 }
@@ -568,7 +568,7 @@ h3 {
 
 .advantages-hero {
   text-align: center;
-  padding-bottom: 48px;
+  padding-bottom: 40px;
 }
 
 .advantages-sub {
@@ -1707,7 +1707,7 @@ h3 {
 
 .contacts-hero {
   text-align: center;
-  padding: 0 6vw 36px;
+  padding: 0 6vw 40px;
 }
 
 .contacts-sub {
@@ -2157,7 +2157,7 @@ h3 {
 
   .hero {
     min-height: auto;
-    padding: 36px 6vw 70px;
+    padding: 36px 6vw 36px;
   }
 
   .hero-content {
@@ -2185,7 +2185,7 @@ h3 {
   }
 
   .hero {
-    padding: 28px 5vw 60px;
+    padding: 28px 5vw 32px;
     min-height: auto;
   }
 
@@ -2470,7 +2470,7 @@ h3 {
   }
 
   .hero {
-    padding: 24px 4vw 50px;
+    padding: 24px 4vw 28px;
   }
 
   .hero-title-line {
@@ -2631,5 +2631,62 @@ h3 {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+
+  .marquee .marquee-track {
+    animation: none !important;
+  }
+}
+
+/* ── Marquee / Бегущая строка ── */
+
+.marquee {
+  overflow: hidden;
+  background: var(--surface);
+  border-top: 1px solid rgba(100, 181, 246, 0.15);
+  border-bottom: 1px solid rgba(100, 181, 246, 0.15);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 35s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-content {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  white-space: nowrap;
+  height: 40px;
+}
+
+.marquee-content span {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  padding: 0 10px;
+}
+
+.marquee-sep {
+  color: var(--blue) !important;
+  font-size: 18px !important;
+  padding: 0 4px !important;
+  letter-spacing: 0 !important;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
