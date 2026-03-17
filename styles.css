@@ -1372,25 +1372,50 @@ h3 {
 .schedule-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
+  gap: 24px;
   padding: 0 6vw;
 }
 
 .schedule-card {
-  padding: 20px;
+  padding: 24px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-left: 3px solid var(--blue);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.schedule-card:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.10);
+  box-shadow: 0 8px 24px rgba(100, 181, 246, 0.12);
 }
 
 .schedule-day {
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(135deg, var(--blue), var(--blue-strong));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .schedule-item {
   color: var(--muted);
   margin-bottom: 6px;
+  padding: 4px 0;
+}
+
+.schedule-time {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.schedule-name {
+  color: var(--muted);
 }
 
 .schedule-cta {
