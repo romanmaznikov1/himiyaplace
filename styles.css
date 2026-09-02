@@ -988,60 +988,80 @@ h3 {
   letter-spacing: 0.03em;
 }
 
+/* Лента превращается в сетку на десктопе; на узких экранах — снова лента (брейкпоинт 960px) */
+.trainers-slider {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  overflow: visible;
+  scroll-snap-type: none;
+}
+
+/* Карточка — портрет во всю площадь, данные поверх затемнения */
 .trainer-card {
   position: relative;
-  padding: 24px;
+  display: block;
+  width: auto;
+  min-width: 0;
+  padding: 0;
+  aspect-ratio: 2 / 3;
   border-radius: var(--radius);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
+  overflow: hidden;
   border: 1px solid var(--border-subtle);
-  min-width: 300px;
-  width: 300px;
-  flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
   cursor: pointer;
-  transition: all 0.3s ease;
   scroll-snap-align: start;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.trainer-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, var(--blue-soft), var(--blue-strong));
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.3, 1),
+    border-color 0.3s ease, box-shadow 0.35s ease;
 }
 
 .trainer-card:hover {
   transform: translateY(-6px);
   border-color: var(--border-strong);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
 }
 
-.trainer-card:hover::before {
+/* Подсветка верхней кромки */
+.trainer-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  z-index: 3;
+  background: linear-gradient(90deg, var(--blue-soft), var(--blue-strong));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.trainer-card:hover::before,
+.trainer-card:focus-visible::before {
   opacity: 1;
 }
 
 .trainer-photo {
-  position: relative;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: 400px;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(227, 242, 253, 0.3), rgba(100, 181, 246, 0.25));
-  margin-bottom: 16px;
+  height: 100%;
+  margin: 0;
+  border-radius: 0;
   overflow: hidden;
-  flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(227, 242, 253, 0.3), rgba(100, 181, 246, 0.25));
+}
+
+/* Затемнение снизу — чтобы текст читался на любом фото */
+.trainer-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top,
+    rgba(5, 16, 30, 0.93) 0%,
+    rgba(5, 16, 30, 0.7) 22%,
+    rgba(5, 16, 30, 0.1) 48%,
+    transparent 66%);
 }
 
 .trainer-image {
@@ -1053,11 +1073,11 @@ h3 {
   top: 0;
   left: 0;
   z-index: 0;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
 }
 
 .trainer-card:hover .trainer-image {
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
 /* Инициалы вместо фото, если картинка не загрузилась (подставляются из script.js) */
@@ -1070,62 +1090,86 @@ h3 {
   font-weight: 700;
   color: var(--text);
   background: linear-gradient(135deg, rgba(100, 181, 246, 0.12), rgba(33, 150, 243, 0.08));
-  border-radius: 8px;
 }
 
 .trainer-meta {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  flex: 1;
   min-width: 0;
 }
 
 .trainer-name {
+  font-family: "Unbounded", sans-serif;
   font-weight: 700;
-  font-size: 1rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
 }
 
 .trainer-style {
   color: var(--blue);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
-  white-space: nowrap;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .trainer-exp {
   color: var(--muted);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
+  line-height: 1.35;
   margin-top: 4px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-.trainer-meta::after {
-  content: '▶ Смотреть видео';
-  display: inline-flex;
-  align-items: center;
-  margin-top: 10px;
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: rgba(100, 181, 246, 0.12);
-  border: 1px solid rgba(100, 181, 246, 0.3);
-  color: var(--blue);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  transition: background 0.2s ease;
-  align-self: flex-start;
+/* Кнопка play — подсказка, что карточка открывает видео */
+.trainer-photo::before {
+  content: '\25B6';
+  position: absolute;
+  z-index: 2;
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding-left: 3px;
+  border-radius: 50%;
+  background: rgba(10, 25, 41, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--white);
+  font-size: 0.78rem;
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
 }
 
-.trainer-card:hover .trainer-meta::after {
-  background: rgba(100, 181, 246, 0.22);
+.trainer-card:hover .trainer-photo::before {
+  background: rgba(33, 150, 243, 0.75);
+}
+
+/* Там, где есть курсор, кнопка проявляется при наведении;
+   на тач-экранах видна всегда — иначе о видео не догадаться */
+@media (hover: hover) {
+  .trainer-photo::before {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  .trainer-card:hover .trainer-photo::before,
+  .trainer-card:focus-visible .trainer-photo::before {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ══ Студии ══ */
@@ -1861,6 +1905,13 @@ h3 {
 
 /* ══ Адаптив ══ */
 
+/* В средней зоне пять карточек ложатся как 4+1 — ровнее в три колонки */
+@media (max-width: 1280px) {
+  .trainers-slider {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media (max-width: 1100px) {
   .direction-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1906,6 +1957,20 @@ h3 {
 }
 
 @media (max-width: 960px) {
+  /* Узко для сетки — тренеры снова горизонтальной лентой */
+  .trainers-slider {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .trainer-card {
+    width: 260px;
+    min-width: 260px;
+    flex-shrink: 0;
+  }
+
   /* Узко для двух колонок — карта над описанием */
   .studio-card:only-child {
     grid-template-columns: 1fr;
@@ -2272,13 +2337,8 @@ h3 {
   }
 
   .trainer-card {
-    min-width: 260px;
-    width: 260px;
-    padding: 20px;
-  }
-
-  .trainer-photo {
-    height: 350px;
+    min-width: 240px;
+    width: 240px;
   }
 
   .modal-content {
@@ -2362,26 +2422,24 @@ h3 {
   }
 
   .trainer-card {
-    min-width: 240px;
-    width: 240px;
+    min-width: 215px;
+    width: 215px;
+  }
+
+  .trainer-meta {
     padding: 16px;
   }
 
-  .trainer-photo {
-    height: 320px;
-    border-radius: 16px;
-  }
-
   .trainer-name {
-    font-size: 0.9rem;
+    font-size: 0.92rem;
   }
 
   .trainer-style {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
   }
 
   .trainer-exp {
-    font-size: 0.75rem;
+    font-size: 0.74rem;
   }
 
   .adv-icon {
