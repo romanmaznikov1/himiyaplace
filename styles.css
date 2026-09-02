@@ -6,8 +6,16 @@
   --blue-deep: #1976d2;
   --white: #ffffff;
   --bg: #0a1929;
+  /* Стеклянные поверхности */
+  --surface-subtle: rgba(255, 255, 255, 0.05);
   --surface: rgba(255, 255, 255, 0.06);
+  --surface-hover: rgba(255, 255, 255, 0.08);
   --surface-strong: rgba(255, 255, 255, 0.12);
+  /* Границы карточек (те же значения в роли обводки) */
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --border-soft: rgba(255, 255, 255, 0.15);
+  --border: rgba(255, 255, 255, 0.2);
+  --border-strong: rgba(255, 255, 255, 0.25);
   --text: #f0f7ff;
   --muted: rgba(240, 247, 255, 0.7);
   --neon: 0 0 24px rgba(100, 181, 246, 0.6), 0 0 42px rgba(33, 150, 243, 0.4);
@@ -344,7 +352,7 @@ h3 {
   height: 44px;
   padding: 12px 10px;
   background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--border);
   border-radius: 12px;
   cursor: pointer;
   transition: background 0.2s ease;
@@ -455,9 +463,9 @@ h3 {
 }
 
 .btn.ghost {
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--border);
   color: var(--text);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-subtle);
 }
 
 .btn.ghost:hover {
@@ -473,7 +481,10 @@ h3 {
   padding-bottom: 40px;
 }
 
-.advantages-sub {
+/* Подзаголовок секции */
+.advantages-sub,
+.directions-sub,
+.contacts-sub {
   margin-top: 12px;
   color: var(--muted);
   font-size: 1.1rem;
@@ -488,9 +499,9 @@ h3 {
 .adv-card {
   position: relative;
   padding: 32px 28px;
-  border-radius: 24px;
+  border-radius: var(--radius);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--border-subtle);
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
   overflow: hidden;
@@ -510,7 +521,7 @@ h3 {
 
 .adv-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(255, 255, 255, 0.25);
+  border-color: var(--border-strong);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
 }
 
@@ -602,9 +613,9 @@ h3 {
 .trial-card {
   position: relative;
   padding: 32px 28px;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -613,7 +624,7 @@ h3 {
 
 .trial-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.25);
+  border-color: var(--border-strong);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
 }
 
@@ -631,7 +642,7 @@ h3 {
   display: grid;
   place-items: center;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-hover);
   flex-shrink: 0;
 }
 
@@ -697,7 +708,7 @@ h3 {
   gap: 8px;
   padding: 24px 20px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-subtle);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -766,9 +777,9 @@ h3 {
 .review-card {
   position: relative;
   padding: 28px;
-  border-radius: 24px;
+  border-radius: var(--radius);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--border-subtle);
   min-height: 180px;
   width: 100%;
   max-width: 320px;
@@ -791,7 +802,7 @@ h3 {
 
 .review-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.25);
+  border-color: var(--border-strong);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
@@ -860,12 +871,6 @@ h3 {
   padding: 0 6vw 40px;
 }
 
-.directions-sub {
-  margin-top: 12px;
-  color: var(--muted);
-  font-size: 1.1rem;
-}
-
 .direction-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -904,7 +909,7 @@ h3 {
 
 .direction:hover {
   transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--border);
   background: rgba(255, 255, 255, 0.07);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
 }
@@ -964,9 +969,9 @@ h3 {
 .trainer-card {
   position: relative;
   padding: 24px;
-  border-radius: 24px;
+  border-radius: var(--radius);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--border-subtle);
   min-width: 300px;
   width: 300px;
   flex-shrink: 0;
@@ -994,7 +999,7 @@ h3 {
 
 .trainer-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(255, 255, 255, 0.25);
+  border-color: var(--border-strong);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
 }
 
@@ -1117,8 +1122,8 @@ h3 {
 .studio-card {
   border-radius: 22px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-soft);
+  background: var(--surface-subtle);
   transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
@@ -1181,7 +1186,7 @@ h3 {
 .schedule-card {
   padding: 24px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-subtle);
   border: 1px solid rgba(255, 255, 255, 0.10);
   border-left: 3px solid var(--blue);
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
@@ -1276,7 +1281,7 @@ h3 {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
-  border-radius: 24px;
+  border-radius: var(--radius);
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(131, 58, 180, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -1344,7 +1349,7 @@ h3 {
   align-items: center;
   gap: 8px;
   padding: 10px 18px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-subtle);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 0.9rem;
@@ -1363,87 +1368,6 @@ h3 {
   object-fit: contain;
 }
 
-.btn-instagram {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 20px 28px;
-  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
-  border-radius: 16px;
-  color: white;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  width: 340px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(131, 58, 180, 0.3);
-}
-
-.btn-instagram::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #9d4edd, #ff006e, #ffbe0b);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.btn-instagram:hover::before {
-  opacity: 1;
-}
-
-.btn-instagram:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(131, 58, 180, 0.5);
-}
-
-.btn-instagram > * {
-  position: relative;
-  z-index: 1;
-}
-
-.btn-instagram-icon {
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-instagram-icon svg {
-  width: 100%;
-  height: 100%;
-}
-
-.btn-instagram-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  align-items: flex-start;
-}
-
-.btn-instagram-main {
-  font-size: 1.1rem;
-  font-weight: 700;
-}
-
-.btn-instagram-sub {
-  font-size: 0.75rem;
-  opacity: 0.9;
-  font-weight: 500;
-}
-
-.btn-instagram-arrow {
-  font-size: 1.5rem;
-  margin-left: auto;
-  transition: transform 0.3s ease;
-}
-
-.btn-instagram:hover .btn-instagram-arrow {
-  transform: translateX(4px);
-}
-
 .social-btns {
   display: flex;
   flex-direction: column;
@@ -1451,12 +1375,13 @@ h3 {
   margin-top: 12px;
 }
 
-.btn-telegram {
+/* Соцкнопки: общая раскладка, цвета задаются модификаторами через переменные */
+.btn-social {
   display: flex;
   align-items: center;
   gap: 16px;
   padding: 20px 28px;
-  background: linear-gradient(135deg, #0088cc, #229ED9, #00b4d8);
+  background: var(--social-bg);
   border-radius: 16px;
   color: white;
   font-weight: 600;
@@ -1465,33 +1390,33 @@ h3 {
   width: 340px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 136, 204, 0.3);
+  box-shadow: 0 8px 24px var(--social-shadow);
 }
 
-.btn-telegram::before {
+.btn-social::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #0099e6, #35bbf0, #00d4ff);
+  background: var(--social-bg-hover);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-.btn-telegram:hover::before {
+.btn-social:hover::before {
   opacity: 1;
 }
 
-.btn-telegram:hover {
+.btn-social:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(0, 136, 204, 0.5);
+  box-shadow: 0 12px 32px var(--social-shadow-hover);
 }
 
-.btn-telegram > * {
+.btn-social > * {
   position: relative;
   z-index: 1;
 }
 
-.btn-telegram-icon {
+.btn-social-icon {
   width: 28px;
   height: 28px;
   display: flex;
@@ -1499,48 +1424,56 @@ h3 {
   justify-content: center;
 }
 
-.btn-telegram-icon svg {
+.btn-social-icon svg {
   width: 100%;
   height: 100%;
 }
 
-.btn-telegram-text {
+.btn-social-text {
   display: flex;
   flex-direction: column;
   gap: 2px;
   align-items: flex-start;
 }
 
-.btn-telegram-main {
+.btn-social-main {
   font-size: 1.1rem;
   font-weight: 700;
 }
 
-.btn-telegram-sub {
+.btn-social-sub {
   font-size: 0.75rem;
   opacity: 0.9;
   font-weight: 500;
 }
 
-.btn-telegram-arrow {
+.btn-social-arrow {
   font-size: 1.5rem;
   margin-left: auto;
   transition: transform 0.3s ease;
 }
 
-.btn-telegram:hover .btn-telegram-arrow {
+.btn-social:hover .btn-social-arrow {
   transform: translateX(4px);
+}
+
+.btn-social--instagram {
+  --social-bg: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+  --social-bg-hover: linear-gradient(135deg, #9d4edd, #ff006e, #ffbe0b);
+  --social-shadow: rgba(131, 58, 180, 0.3);
+  --social-shadow-hover: rgba(131, 58, 180, 0.5);
+}
+
+.btn-social--telegram {
+  --social-bg: linear-gradient(135deg, #0088cc, #229ED9, #00b4d8);
+  --social-bg-hover: linear-gradient(135deg, #0099e6, #35bbf0, #00d4ff);
+  --social-shadow: rgba(0, 136, 204, 0.3);
+  --social-shadow-hover: rgba(0, 136, 204, 0.5);
 }
 
 .contacts-hero {
   text-align: center;
   padding: 0 6vw 40px;
-}
-
-.contacts-sub {
-  margin-top: 12px;
-  color: var(--muted);
-  font-size: 1.1rem;
 }
 
 .contacts-grid {
@@ -1552,8 +1485,8 @@ h3 {
 
 .contact-card {
   border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-soft);
+  background: var(--surface-subtle);
   padding: 28px 24px;
   display: flex;
   flex-direction: column;
@@ -1580,7 +1513,7 @@ h3 {
   display: grid;
   place-items: center;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-hover);
   margin-bottom: 4px;
   flex-shrink: 0;
 }
@@ -1609,8 +1542,8 @@ h3 {
   padding: 10px 16px;
   margin-top: auto;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--surface-hover);
+  border: 1px solid var(--border-subtle);
   color: var(--text);
   font-weight: 600;
   font-size: 0.875rem;
@@ -1657,8 +1590,8 @@ h3 {
   display: inline-flex;
   align-items: center;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
   font-size: 0.9rem;
   white-space: nowrap;
   transition: background 0.2s ease, transform 0.2s ease;
@@ -1691,9 +1624,9 @@ h3 {
   max-width: 640px;
   width: 100%;
   background: var(--bg);
-  border-radius: 24px;
+  border-radius: var(--radius);
   padding: 28px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--border);
   box-shadow: var(--neon);
   display: grid;
   gap: 16px;
@@ -1754,7 +1687,7 @@ h3 {
   max-height: 80vh;
   border-radius: 16px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-hover);
 }
 
 .modal-video-wrap iframe,
@@ -2139,21 +2072,18 @@ h3 {
     align-items: center;
   }
 
-  .btn-instagram,
-  .btn-telegram {
+  .btn-social {
     padding: 18px 24px;
     width: 100%;
     max-width: 100%;
     justify-content: center;
   }
 
-  .btn-instagram-main,
-  .btn-telegram-main {
+  .btn-social-main {
     font-size: 1rem;
   }
 
-  .btn-instagram-arrow,
-  .btn-telegram-arrow {
+  .btn-social-arrow {
     display: none;
   }
 
@@ -2359,13 +2289,11 @@ h3 {
     box-shadow: 0 12px 40px rgba(131, 58, 180, 0.25);
   }
 
-  .btn-instagram,
-  .btn-telegram {
+  .btn-social {
     padding: 16px 20px;
   }
 
-  .btn-instagram-icon,
-  .btn-telegram-icon {
+  .btn-social-icon {
     width: 24px;
     height: 24px;
   }}
