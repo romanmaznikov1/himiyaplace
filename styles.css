@@ -1136,19 +1136,27 @@ h3 {
 
 .studio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
   padding: 0 6vw;
-  max-width: 560px;
-  margin: 0 auto;
+}
+
+/* Единственная студия разворачивается горизонтально во всю ширину контента */
+.studio-grid:has(> .studio-card:only-child) {
+  grid-template-columns: 1fr;
 }
 
 .studio-card {
-  border-radius: 22px;
+  border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border-soft);
   background: var(--surface-subtle);
   transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.studio-card:only-child {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
 }
 
 .studio-card:hover {
@@ -1164,10 +1172,29 @@ h3 {
   position: relative;
 }
 
+.studio-card:only-child .studio-map {
+  height: 100%;
+  min-height: 340px;
+  border-radius: 0;
+}
+
 .studio-body {
   padding: 20px;
   display: grid;
   gap: 10px;
+}
+
+/* Кнопка по ширине текста, а не во всю колонку
+   (перебивает .pill { width: 100% } из брейкпоинта 640px) */
+.studio-body .pill {
+  justify-self: start;
+  width: auto;
+}
+
+.studio-card:only-child .studio-body {
+  align-content: center;
+  gap: 14px;
+  padding: 40px;
 }
 
 /* ══ Расписание ══ */
@@ -1879,6 +1906,20 @@ h3 {
 }
 
 @media (max-width: 960px) {
+  /* Узко для двух колонок — карта над описанием */
+  .studio-card:only-child {
+    grid-template-columns: 1fr;
+  }
+
+  .studio-card:only-child .studio-map {
+    min-height: 0;
+    height: 280px;
+  }
+
+  .studio-card:only-child .studio-body {
+    padding: 24px;
+  }
+
   .mobile-menu-toggle {
     display: flex;
   }
