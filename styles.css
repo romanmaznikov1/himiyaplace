@@ -34,9 +34,19 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
+/* Фон не прокручивается, пока открыта модалка */
+body.no-scroll {
+  overflow: hidden;
+}
+
 a {
   color: inherit;
   text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
 }
 
 h1, h2, h3 {
@@ -1021,6 +1031,19 @@ h3 {
 
 .trainer-card:hover .trainer-image {
   transform: scale(1.05);
+}
+
+/* Инициалы вместо фото, если картинка не загрузилась (подставляются из script.js) */
+.trainer-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-weight: 700;
+  color: var(--text);
+  background: linear-gradient(135deg, rgba(100, 181, 246, 0.12), rgba(33, 150, 243, 0.08));
+  border-radius: 8px;
 }
 
 .trainer-meta {

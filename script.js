@@ -1,185 +1,196 @@
-// Mobile menu
-const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
-const navLinks = document.getElementById("nav-links");
+/* Интерактив лендинга: мобильное меню, слайдер тренеров, модалка, reveal-анимации. */
+(() => {
+  "use strict";
 
-if (mobileMenuToggle && navLinks) {
-  const openMenu = () => {
-    mobileMenuToggle.classList.add("active");
-    navLinks.classList.add("active");
-    mobileMenuToggle.setAttribute("aria-expanded", "true");
+  const initials = (label) =>
+    label
+      .split(" ")
+      .filter(Boolean)
+      .map((part) => part[0])
+      .join("")
+      .slice(0, 2)
+      .toUpperCase();
+
+  /* ---------- Мобильное меню ---------- */
+  const initMobileMenu = () => {
+    const toggle = document.getElementById("mobile-menu-toggle");
+    const links = document.getElementById("nav-links");
+    if (!toggle || !links) return;
+
+    const isOpen = () => links.classList.contains("active");
+
+    const setOpen = (open) => {
+      toggle.classList.toggle("active", open);
+      links.classList.toggle("active", open);
+      toggle.setAttribute("aria-expanded", String(open));
+    };
+
+    toggle.addEventListener("click", () => setOpen(!isOpen()));
+
+    links.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => setOpen(false));
+    });
+
+    document.addEventListener("click", (event) => {
+      if (isOpen() && !links.contains(event.target) && !toggle.contains(event.target)) {
+        setOpen(false);
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && isOpen()) setOpen(false);
+    });
   };
 
-  const closeMenu = () => {
-    mobileMenuToggle.classList.remove("active");
-    navLinks.classList.remove("active");
-    mobileMenuToggle.setAttribute("aria-expanded", "false");
-  };
+  /* ---------- Горизонтальные слайдеры: прокрутка колесом ---------- */
+  const initSliders = () => {
+    document.querySelectorAll(".slider").forEach((slider) => {
+      slider.addEventListener("wheel", (event) => {
+        // Вертикальную прокрутку страницы не перехватываем.
+        if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
 
-  mobileMenuToggle.addEventListener("click", () => {
-    navLinks.classList.contains("active") ? closeMenu() : openMenu();
-  });
+        const delta = event.deltaY * 0.6; // мягче, чтобы прокрутка не «прыгала»
+        const maxScroll = slider.scrollWidth - slider.clientWidth;
+        const canScroll =
+          (delta < 0 && slider.scrollLeft > 0) ||
+          (delta > 0 && slider.scrollLeft < maxScroll);
 
-  // Close on link click
-  navLinks.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", closeMenu);
-  });
-
-  // Close on click outside
-  document.addEventListener("click", (e) => {
-    if (navLinks.classList.contains("active") &&
-        !navLinks.contains(e.target) &&
-        !mobileMenuToggle.contains(e.target)) {
-      closeMenu();
-    }
-  });
-
-  // Close on Escape
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && navLinks.classList.contains("active")) closeMenu();
-  });
-}
-
-const sliders = document.querySelectorAll(".slider");
-const buttons = document.querySelectorAll(".slider-btn");
-
-buttons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const targetId = btn.dataset.target;
-    const dir = Number(btn.dataset.dir || 1);
-    const target = document.getElementById(targetId);
-    if (!target) return;
-    const amount = target.clientWidth * 0.7 * dir;
-    target.scrollBy({ left: amount, behavior: "smooth" });
-  });
-});
-
-sliders.forEach((slider) => {
-  slider.addEventListener("wheel", (event) => {
-    if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
-      const scrollLeft = slider.scrollLeft;
-      const maxScroll = slider.scrollWidth - slider.clientWidth;
-      const delta = event.deltaY * 0.6; // Уменьшаем скорость для плавности
-      
-      // Только перехватываем событие если слайдер может скроллиться в нужную сторону
-      const canScrollLeft = delta < 0 && scrollLeft > 0;
-      const canScrollRight = delta > 0 && scrollLeft < maxScroll;
-      
-      if (canScrollLeft || canScrollRight) {
+        // У края отдаём событие странице, иначе прокрутка «залипает».
+        if (!canScroll) return;
         event.preventDefault();
         slider.scrollBy({ left: delta, behavior: "smooth" });
-      }
-    }
-  });
-});
-
-const infoModal = document.getElementById("info-modal");
-const modalName = document.getElementById("modal-name");
-const modalStyle = document.getElementById("modal-style");
-const modalDesc = document.getElementById("modal-desc");
-const modalAvatar = document.getElementById("modal-avatar");
-const modalVideo = document.getElementById("modal-video");
-const modalVideoLocal = document.getElementById("modal-video-local");
-const modalVideoWrap = document.querySelector(".modal-video-wrap");
-
-const trainerCards = document.querySelectorAll(".trainer-card");
-
-const openModal = () => {
-  infoModal.classList.add("open");
-  infoModal.setAttribute("aria-hidden", "false");
-};
-
-const closeModal = () => {
-  infoModal.classList.remove("open");
-  infoModal.setAttribute("aria-hidden", "true");
-  modalVideo.src = "";
-  if (modalVideoLocal) {
-    modalVideoLocal.pause();
-    modalVideoLocal.src = "";
-  }
-  if (modalVideoWrap) modalVideoWrap.classList.remove("modal-video-wrap--local");
-};
-
-const initials = (label) =>
-  label
-    .split(" ")
-    .map((part) => part[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
-
-trainerCards.forEach((card) => {
-  card.addEventListener("click", () => {
-    const name = card.dataset.name || "Тренер";
-    const style = card.dataset.style || "";
-    const desc = card.dataset.desc || "Информация скоро появится.";
-    const video = card.dataset.video || "";
-
-    modalName.textContent = name;
-    modalStyle.textContent = style;
-    modalDesc.textContent = desc;
-    modalAvatar.textContent = initials(name);
-
-    const isLocalVideo = video && (video.endsWith(".mp4") || video.startsWith("videos/"));
-    if (isLocalVideo && modalVideoLocal && modalVideoWrap) {
-      modalVideo.src = "";
-      modalVideoWrap.classList.add("modal-video-wrap--local");
-      modalVideoLocal.src = video;
-      modalVideoLocal.play().catch(() => {});
-    } else {
-      modalVideoWrap.classList.remove("modal-video-wrap--local");
-      modalVideoLocal.src = "";
-      modalVideo.src = video;
-    }
-    openModal();
-  });
-});
-
-
-const closeButton = document.querySelector(".modal-close");
-if (closeButton) closeButton.addEventListener("click", closeModal);
-
-if (infoModal) {
-  infoModal.addEventListener("click", (event) => {
-    if (event.target === infoModal) closeModal();
-  });
-}
-
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && infoModal.classList.contains("open")) closeModal();
-});
-
-const revealItems = document.querySelectorAll(".reveal");
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add("visible");
-      revealObserver.unobserve(entry.target);
+      });
     });
-  },
-  { threshold: 0.16 }
-);
+  };
 
-revealItems.forEach((item, index) => {
-  item.style.transitionDelay = `${Math.min(index * 28, 180)}ms`;
-  revealObserver.observe(item);
-});
+  /* ---------- Модалка тренера ---------- */
+  const initTrainerModal = () => {
+    const modal = document.getElementById("info-modal");
+    const cards = document.querySelectorAll(".trainer-card");
+    if (!modal || !cards.length) return;
 
-// Image fallback: show initials when image fails to load
-document.querySelectorAll('.trainer-photo img.trainer-image').forEach((img) => {
-  img.addEventListener('error', () => {
-    const photo = img.closest('.trainer-photo');
-    if (!photo) return;
-    // hide broken img
-    img.style.display = 'none';
-    // if fallback already exists, do nothing
-    if (photo.querySelector('.trainer-fallback')) return;
-    const card = img.closest('.trainer-card');
-    const name = (card && card.dataset.name) ? card.dataset.name : '';
-    const div = document.createElement('div');
-    div.className = 'trainer-fallback';
-    div.textContent = initials(name || '');
-    div.style.cssText = 'display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-weight:700;background:linear-gradient(135deg, rgba(100,181,246,0.12), rgba(33,150,243,0.08));border-radius:8px;color:var(--text);';
-    photo.insertBefore(div, photo.firstChild);
-  });
-});
+    const nameEl = document.getElementById("modal-name");
+    const styleEl = document.getElementById("modal-style");
+    const descEl = document.getElementById("modal-desc");
+    const avatarEl = document.getElementById("modal-avatar");
+    const frame = document.getElementById("modal-video");
+    const video = document.getElementById("modal-video-local");
+    const videoWrap = modal.querySelector(".modal-video-wrap");
+    const closeBtn = modal.querySelector(".modal-close");
+
+    let lastFocused = null;
+
+    const isOpen = () => modal.classList.contains("open");
+
+    const open = (card) => {
+      const name = card.dataset.name || "Тренер";
+
+      if (nameEl) nameEl.textContent = name;
+      if (styleEl) styleEl.textContent = card.dataset.style || "";
+      if (descEl) descEl.textContent = card.dataset.desc || "Информация скоро появится.";
+      if (avatarEl) avatarEl.textContent = initials(name);
+
+      const src = card.dataset.video || "";
+      const isLocal = src.endsWith(".mp4") || src.startsWith("videos/");
+      if (videoWrap) videoWrap.classList.toggle("modal-video-wrap--local", isLocal);
+      if (isLocal && video) {
+        if (frame) frame.src = "";
+        video.src = src;
+        video.play().catch(() => {}); // автоплей может быть заблокирован — это нормально
+      } else {
+        if (video) video.src = "";
+        if (frame) frame.src = src;
+      }
+
+      lastFocused = document.activeElement;
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("no-scroll");
+      if (closeBtn) closeBtn.focus();
+    };
+
+    const close = () => {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("no-scroll");
+
+      if (frame) frame.src = "";
+      if (video) {
+        video.pause();
+        video.src = "";
+      }
+      if (videoWrap) videoWrap.classList.remove("modal-video-wrap--local");
+
+      if (lastFocused instanceof HTMLElement) lastFocused.focus();
+      lastFocused = null;
+    };
+
+    cards.forEach((card) => {
+      card.addEventListener("click", () => open(card));
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          open(card);
+        }
+      });
+    });
+
+    if (closeBtn) closeBtn.addEventListener("click", close);
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) close();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && isOpen()) close();
+    });
+  };
+
+  /* ---------- Появление блоков при прокрутке ---------- */
+  const initReveal = () => {
+    const items = document.querySelectorAll(".reveal");
+    if (!items.length) return;
+
+    if (!("IntersectionObserver" in window)) {
+      items.forEach((item) => item.classList.add("visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.16 }
+    );
+
+    items.forEach((item, index) => {
+      item.style.transitionDelay = `${Math.min(index * 28, 180)}ms`;
+      observer.observe(item);
+    });
+  };
+
+  /* ---------- Запасные инициалы, если фото тренера не загрузилось ---------- */
+  const initPhotoFallback = () => {
+    document.querySelectorAll(".trainer-photo img.trainer-image").forEach((img) => {
+      img.addEventListener("error", () => {
+        const photo = img.closest(".trainer-photo");
+        if (!photo || photo.querySelector(".trainer-fallback")) return;
+
+        img.style.display = "none";
+        const card = img.closest(".trainer-card");
+        const fallback = document.createElement("div");
+        fallback.className = "trainer-fallback";
+        fallback.textContent = initials((card && card.dataset.name) || "");
+        photo.prepend(fallback);
+      });
+    });
+  };
+
+  initMobileMenu();
+  initSliders();
+  initTrainerModal();
+  initReveal();
+  initPhotoFallback();
+})();
