@@ -77,6 +77,8 @@ h3 {
   line-height: 1.4;
 }
 
+/* ══ Фон: орбиты и шум ══ */
+
 .bg-orbit {
   position: fixed;
   top: -20vh;
@@ -107,6 +109,8 @@ h3 {
   z-index: -1;
   opacity: 0.4;
 }
+
+/* ══ Hero ══ */
 
 .hero {
   padding: 36px 6vw 40px;
@@ -332,6 +336,8 @@ h3 {
   letter-spacing: 0.06em;
 }
 
+/* ══ Навигация ══ */
+
 .nav {
   display: flex;
   align-items: center;
@@ -437,6 +443,8 @@ h3 {
   justify-content: center;
 }
 
+/* ══ Кнопки ══ */
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -471,6 +479,8 @@ h3 {
 .btn.ghost:hover {
   box-shadow: 0 0 18px rgba(255, 255, 255, 0.2);
 }
+
+/* ══ Преимущества ══ */
 
 .advantages {
   padding: 0 6vw 80px;
@@ -570,6 +580,8 @@ h3 {
   color: var(--muted);
   line-height: 1.6;
 }
+
+/* ══ Пробное занятие ══ */
 
 .trial {
   padding: 0 6vw 80px;
@@ -729,6 +741,8 @@ h3 {
   text-align: center;
 }
 
+/* ══ Заголовок секции ══ */
+
 .section-head {
   display: flex;
   align-items: center;
@@ -737,6 +751,8 @@ h3 {
   margin-bottom: 24px;
   gap: 20px;
 }
+
+/* ══ Отзывы ══ */
 
 .reviews {
   padding: 0 0 80px;
@@ -753,6 +769,8 @@ h3 {
   padding: 0 6vw;
   justify-items: center;
 }
+
+/* ══ Слайдер (общий) ══ */
 
 .slider {
   display: flex;
@@ -862,6 +880,8 @@ h3 {
   font-style: italic;
 }
 
+/* ══ Направления ══ */
+
 .directions {
   padding: 0 0 80px;
 }
@@ -947,6 +967,8 @@ h3 {
   line-height: 1.5;
   flex-grow: 1;
 }
+
+/* ══ Тренеры ══ */
 
 .trainers {
   padding: 0 0 80px;
@@ -1106,6 +1128,8 @@ h3 {
   background: rgba(100, 181, 246, 0.22);
 }
 
+/* ══ Студии ══ */
+
 .studios {
   padding: 0 0 80px;
 }
@@ -1145,6 +1169,8 @@ h3 {
   display: grid;
   gap: 10px;
 }
+
+/* ══ Расписание ══ */
 
 .schedule {
   padding: 0 0 80px;
@@ -1230,9 +1256,7 @@ h3 {
   text-align: center;
 }
 
-.contacts {
-  padding: 0 0 80px;
-}
+/* ══ Instagram ══ */
 
 .instagram-section {
   padding: 80px 6vw;
@@ -1368,6 +1392,8 @@ h3 {
   object-fit: contain;
 }
 
+/* ══ Соцкнопки ══ */
+
 .social-btns {
   display: flex;
   flex-direction: column;
@@ -1471,6 +1497,12 @@ h3 {
   --social-shadow-hover: rgba(0, 136, 204, 0.5);
 }
 
+/* ══ Контакты ══ */
+
+.contacts {
+  padding: 0 0 80px;
+}
+
 .contacts-hero {
   text-align: center;
   padding: 0 6vw 40px;
@@ -1562,6 +1594,8 @@ h3 {
   opacity: 0.6;
 }
 
+/* ══ Подвал ══ */
+
 .footer {
   padding: 40px 6vw 60px;
   display: flex;
@@ -1584,6 +1618,8 @@ h3 {
   gap: 12px;
 }
 
+/* ══ Pill-ссылки ══ */
+
 .pill {
   padding: 10px 18px;
   min-height: 44px;
@@ -1603,6 +1639,8 @@ h3 {
   background: rgba(255, 255, 255, 0.2);
   transform: translateY(-1px);
 }
+
+/* ══ Модалка тренера ══ */
 
 .modal {
   position: fixed;
@@ -1718,6 +1756,8 @@ h3 {
   display: none;
 }
 
+/* ══ Появление при прокрутке ══ */
+
 .reveal {
   opacity: 0;
   transform: translateY(16px);
@@ -1739,7 +1779,7 @@ h3 {
   }
 }
 
-/* ── Marquee / Бегущая строка ── */
+/* ══ Бегущая строка ══ */
 
 .marquee {
   overflow: hidden;
@@ -1791,6 +1831,8 @@ h3 {
     transform: translateX(-50%);
   }
 }
+
+/* ══ Адаптив ══ */
 
 @media (max-width: 1100px) {
   .direction-grid {
