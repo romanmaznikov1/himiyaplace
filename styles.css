@@ -1313,6 +1313,8 @@ h3 {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
   padding: 0 6vw;
+  max-width: 560px;
+  margin: 0 auto;
 }
 
 .studio-card {
@@ -1747,7 +1749,7 @@ h3 {
 .contacts-grid {
   padding: 0 6vw;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 18px;
 }
 
