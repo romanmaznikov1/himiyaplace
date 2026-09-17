@@ -482,8 +482,10 @@ h3 {
 
 /* ══ Преимущества ══ */
 
+/* Отступ сверху — секция идёт сразу за бегущей строкой,
+   и без него заголовок упирается в её нижнюю границу. */
 .advantages {
-  padding: 0 6vw 80px;
+  padding: 72px 6vw 80px;
 }
 
 .advantages-hero {
@@ -1131,30 +1133,33 @@ h3 {
   margin-top: 4px;
 }
 
-/* Кнопка play — подсказка, что карточка открывает видео */
+/* Кнопка play — подсказка, что карточка открывает видео.
+   Треугольник рисуем SVG, а не символом ▶: мобильные шрифты
+   подменяют его цветной эмодзи-глифом в квадрате.
+   Позиция сдвинута на 1px вправо — треугольник центрируется
+   оптически, а не геометрически. */
 .trainer-photo::before {
-  content: '\25B6';
+  content: '';
   position: absolute;
   z-index: 2;
   top: 14px;
   right: 14px;
   width: 40px;
   height: 40px;
-  display: grid;
-  place-items: center;
-  padding-left: 3px;
   border-radius: 50%;
-  background: rgba(10, 25, 41, 0.55);
+  background-color: rgba(10, 25, 41, 0.55);
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="%23ffffff"/></svg>');
+  background-repeat: no-repeat;
+  background-position: calc(50% + 1px) center;
+  background-size: 11px 13px;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  color: var(--white);
-  font-size: 0.78rem;
-  transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
 }
 
 .trainer-card:hover .trainer-photo::before {
-  background: rgba(33, 150, 243, 0.75);
+  background-color: rgba(33, 150, 243, 0.75);
 }
 
 /* Там, где есть курсор, кнопка проявляется при наведении;
@@ -2349,7 +2354,7 @@ h3 {
   }
 
   .advantages {
-    padding: 0 5vw 60px;
+    padding: 48px 5vw 60px;
   }
 
   .advantages-grid {
@@ -2399,11 +2404,12 @@ h3 {
     align-items: center;
   }
 
+  /* Без центрирования: подписи у кнопок разной длины, и по центру
+     иконки с никами вставали на разной высоте по горизонтали. */
   .btn-social {
     padding: 18px 24px;
     width: 100%;
     max-width: 100%;
-    justify-content: center;
   }
 
   .btn-social-main {
