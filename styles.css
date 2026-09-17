@@ -1268,88 +1268,79 @@ h3 {
   color: var(--blue);
 }
 
-/* Пять будних дней — неделя одной полосой */
-.schedule-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  align-items: stretch;
-  gap: 16px;
+/* Неделя — колонка цельных полос-«таблеток», каждая своей высоты
+   по числу занятий: так дни с одним классом не тянутся под дни
+   с пятью и не остаётся пустот, как было бы в сетке карточек. */
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
   padding: 0 6vw;
 }
 
-.schedule-card {
+.schedule-row {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 20px 18px;
-  border-radius: var(--radius);
-  background: var(--surface-subtle);
-  border: 1px solid var(--border-subtle);
+  align-items: center;
+  gap: 28px;
+  padding: 22px 34px;
+  border-radius: 999px;
   transition: transform 0.28s cubic-bezier(0.2, 0.7, 0.3, 1),
     border-color 0.28s ease, background 0.28s ease, box-shadow 0.28s ease;
 }
 
-.schedule-card:hover {
-  transform: translateY(-3px);
-  background: var(--surface-hover);
+/* Чередование заливки и контура — «таблетки» не сливаются в полотно */
+.schedule-row:nth-child(odd) {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+}
+
+.schedule-row:nth-child(even) {
+  background: var(--surface-subtle);
+  border: 1px solid transparent;
+}
+
+.schedule-row:hover {
+  transform: translateY(-2px);
   border-color: var(--border-strong);
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.3);
 }
 
-.schedule-day {
-  display: flex;
-  align-items: center;
-  gap: 9px;
+.schedule-row-day {
+  flex: 0 0 auto;
+  min-width: 76px;
   font-family: "Unbounded", sans-serif;
-  font-size: 0.85rem;
+  font-size: 1.6rem;
   font-weight: 500;
-  letter-spacing: 0.03em;
-  color: var(--text);
-  padding-bottom: 14px;
-  margin-bottom: 2px;
-  border-bottom: 1px solid var(--border-subtle);
+  color: var(--blue);
 }
 
-/* Светящаяся точка — маркер дня */
-.schedule-day::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  background: var(--blue);
-  box-shadow: 0 0 10px rgba(100, 181, 246, 0.9);
-}
-
-/* Занятие: время сверху, название под ним — так не рвётся в узкой колонке */
-.schedule-item {
+.schedule-row-body {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  padding: 9px 11px;
-  margin: 0;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid transparent;
-  transition: background 0.22s ease, border-color 0.22s ease;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
 }
 
-.schedule-item:hover {
-  background: rgba(100, 181, 246, 0.13);
-  border-color: rgba(100, 181, 246, 0.32);
+.schedule-row-item {
+  display: grid;
+  grid-template-columns: 118px 1fr;
+  align-items: baseline;
+  gap: 16px;
 }
 
-.schedule-time {
+.schedule-row-time {
   font-weight: 700;
   font-size: 0.92rem;
   color: var(--blue);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
-.schedule-name {
+.schedule-row-name {
   color: var(--text);
-  font-size: 0.87rem;
+  font-size: 0.92rem;
   line-height: 1.35;
 }
 
@@ -2006,24 +1997,29 @@ h3 {
   }
 }
 
-/* Пять дней в средней зоне дают 4+1 — ровнее в три колонки.
-   minmax(0,…) обязателен: иначе минимальная ширина содержимого
-   распирает дорожки и последний день уезжает за край экрана. */
-@media (max-width: 1150px) {
-  .schedule-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
 @media (max-width: 820px) {
-  .schedule-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .schedule-row {
+    padding: 20px 26px;
+    gap: 20px;
+  }
+
+  .schedule-row-day {
+    min-width: 56px;
+    font-size: 1.3rem;
   }
 }
 
-@media (max-width: 480px) {
-  .schedule-grid {
-    grid-template-columns: minmax(0, 1fr);
+@media (max-width: 560px) {
+  .schedule-row {
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 28px;
+    gap: 12px;
+  }
+
+  .schedule-row-item {
+    grid-template-columns: 92px 1fr;
+    gap: 10px;
   }
 }
 
@@ -2433,8 +2429,7 @@ h3 {
     gap: 12px;
   }
 
-  .review-card,
-  .schedule-card {
+  .review-card {
     min-width: auto;
   }
 
