@@ -1268,68 +1268,80 @@ h3 {
   color: var(--blue);
 }
 
-/* Неделя — колонка цельных полос-«таблеток», каждая своей высоты
-   по числу занятий: так дни с одним классом не тянутся под дни
-   с пятью и не остаётся пустот, как было бы в сетке карточек. */
-.schedule-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+/* Семь дней сеткой 4+3: фиксированные четыре дорожки, а не auto-fit,
+   иначе на широком экране неделя растягивается в один ряд. */
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 16px;
   padding: 0 6vw;
 }
 
-.schedule-row {
+.schedule-card {
   display: flex;
-  align-items: center;
-  gap: 28px;
-  padding: 22px 34px;
-  border-radius: 999px;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 18px;
+  border-radius: var(--radius);
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-subtle);
   transition: transform 0.28s cubic-bezier(0.2, 0.7, 0.3, 1),
     border-color 0.28s ease, background 0.28s ease, box-shadow 0.28s ease;
 }
 
-/* Чередование заливки и контура — «таблетки» не сливаются в полотно */
-.schedule-row:nth-child(odd) {
-  background: transparent;
-  border: 1px solid var(--border-subtle);
-}
-
-.schedule-row:nth-child(even) {
-  background: var(--surface-subtle);
-  border: 1px solid transparent;
-}
-
-.schedule-row:hover {
-  transform: translateY(-2px);
+.schedule-card:hover {
+  transform: translateY(-3px);
+  background: var(--surface-hover);
   border-color: var(--border-strong);
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.3);
 }
 
-.schedule-row-day {
-  flex: 0 0 auto;
-  min-width: 76px;
-  font-family: "Unbounded", sans-serif;
-  font-size: 1.6rem;
-  font-weight: 500;
-  color: var(--blue);
-}
-
-.schedule-row-body {
+.schedule-day {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
-  min-width: 0;
+  align-items: center;
+  gap: 9px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--text);
+  padding-bottom: 14px;
+  margin-bottom: 2px;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
-.schedule-row-item {
-  display: grid;
-  grid-template-columns: 118px 1fr;
+/* Светящаяся точка — маркер дня */
+.schedule-day::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--blue);
+  box-shadow: 0 0 10px rgba(100, 181, 246, 0.9);
+}
+
+/* Занятие в одну строку: время и название рядом — так карточка ниже */
+.schedule-item {
+  display: flex;
   align-items: baseline;
-  gap: 16px;
+  gap: 10px;
+  padding: 7px 11px;
+  margin: 0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid transparent;
+  transition: background 0.22s ease, border-color 0.22s ease;
 }
 
-.schedule-row-time {
+.schedule-item:hover {
+  background: rgba(100, 181, 246, 0.13);
+  border-color: rgba(100, 181, 246, 0.32);
+}
+
+.schedule-time {
+  flex-shrink: 0;
   font-weight: 700;
   font-size: 0.92rem;
   color: var(--blue);
@@ -1338,9 +1350,9 @@ h3 {
   white-space: nowrap;
 }
 
-.schedule-row-name {
+.schedule-name {
   color: var(--text);
-  font-size: 0.92rem;
+  font-size: 0.87rem;
   line-height: 1.35;
 }
 
@@ -1997,29 +2009,25 @@ h3 {
   }
 }
 
-@media (max-width: 820px) {
-  .schedule-row {
-    padding: 20px 26px;
-    gap: 20px;
-  }
-
-  .schedule-row-day {
-    min-width: 56px;
-    font-size: 1.3rem;
+/* Порог 1230px — ниже него в четырёх колонках самое длинное название
+   («Женственный HipHop») уже не влезает к времени в одну строку.
+   minmax(0,…) обязателен: иначе минимальная ширина содержимого
+   распирает дорожки и последний день уезжает за край экрана. */
+@media (max-width: 1230px) {
+  .schedule-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 560px) {
-  .schedule-row {
-    flex-direction: column;
-    align-items: flex-start;
-    border-radius: 28px;
-    gap: 12px;
+@media (max-width: 820px) {
+  .schedule-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
 
-  .schedule-row-item {
-    grid-template-columns: 92px 1fr;
-    gap: 10px;
+@media (max-width: 480px) {
+  .schedule-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -2429,7 +2437,8 @@ h3 {
     gap: 12px;
   }
 
-  .review-card {
+  .review-card,
+  .schedule-card {
     min-width: auto;
   }
 
