@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
-Disallow:
+# Исходники статей и сборщик — не для поиска, страницы блога лежат в /blog/
+Disallow: /content/
+Disallow: /tools/
 
 Sitemap: https://himiyaplace.ru/sitemap.xml
 

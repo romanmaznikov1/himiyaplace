@@ -895,7 +895,7 @@ h3 {
 
 .direction-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
   padding: 0 6vw;
 }
@@ -2005,6 +2005,718 @@ h3 {
   }
 }
 
+/* ══ Цены ══ */
+
+.prices {
+  padding: 0 6vw 80px;
+}
+
+.prices .section-head {
+  padding: 0;
+}
+
+.prices-lead {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 640px;
+  margin-bottom: 28px;
+}
+
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.price-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 28px 24px 24px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.price-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-strong);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+.price-card--accent {
+  background: linear-gradient(135deg, rgba(227, 242, 253, 0.2), rgba(100, 181, 246, 0.15));
+  border-color: rgba(100, 181, 246, 0.3);
+  box-shadow: 0 0 40px rgba(100, 181, 246, 0.2);
+}
+
+.price-badge {
+  position: absolute;
+  top: -12px;
+  left: 24px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--blue), var(--blue-strong));
+  color: var(--white);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.price-count {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.price-num {
+  font-family: "Unbounded", sans-serif;
+  font-size: 2.6rem;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--blue-light), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.price-rhythm {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.price-total {
+  margin-top: auto;
+  padding-top: 18px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.price-per {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.price-saving {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(100, 181, 246, 0.18);
+  color: var(--blue-soft);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.price-single {
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.price-single strong {
+  color: var(--text);
+}
+
+.price-trial {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 28px;
+  border-radius: var(--radius);
+  background: var(--surface-subtle);
+  border: 1px dashed var(--border);
+}
+
+.price-trial-title {
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin-bottom: 4px;
+}
+
+.price-trial-text {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.price-trial .btn {
+  flex-shrink: 0;
+}
+
+@media (max-width: 1100px) {
+  .price-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .prices-lead,
+  .price-single {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .price-trial {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    padding: 22px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .price-grid {
+    gap: 12px;
+    row-gap: 20px;
+  }
+
+  .price-card {
+    padding: 24px 16px 18px;
+  }
+
+  .price-badge {
+    left: 16px;
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+  }
+
+  .price-num {
+    font-size: 2rem;
+  }
+
+  .price-count {
+    font-size: 0.9rem;
+    gap: 6px;
+  }
+
+  .price-total {
+    font-size: 1.25rem;
+    padding-top: 12px;
+  }
+
+  .price-per {
+    font-size: 0.82rem;
+  }
+}
+
+/* ══ Блог ══ */
+
+/* Карточка статьи — общая для главной, хаба блога и «Читайте также» */
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-soft);
+  background: var(--surface-subtle);
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1),
+    border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-strong);
+  background: var(--surface-hover);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.32);
+}
+
+.post-card-cat {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--blue-soft);
+}
+
+.post-card-title {
+  font-family: "Unbounded", sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.post-card-desc {
+  flex: 1;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.post-card-meta {
+  font-size: 0.85rem;
+  color: var(--blue);
+}
+
+/* Блок «Полезное» на главной */
+.blog-teaser {
+  padding: 0 0 80px;
+}
+
+.blog-teaser .post-grid {
+  padding: 0 6vw;
+}
+
+/* Шапка страниц блога: та же навигация, но без героя */
+.blog-top {
+  padding: 36px 6vw 0;
+}
+
+@supports(padding: max(0px)) {
+  .blog-top {
+    padding-left: max(6vw, env(safe-area-inset-left));
+    padding-right: max(6vw, env(safe-area-inset-right));
+  }
+}
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.crumbs a:hover {
+  color: var(--text);
+}
+
+.crumbs span[aria-hidden] {
+  opacity: 0.5;
+}
+
+/* Статья: узкая колонка для комфортного чтения */
+.post {
+  padding: 0 6vw 80px;
+}
+
+.post-article,
+.post > .crumbs {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.post-head h1 {
+  font-size: clamp(1.7rem, 5vw, 2.6rem);
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.post-meta strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.post-meta-photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid var(--border);
+}
+
+.post-meta-line {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.post-body {
+  margin-top: 36px;
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+
+.post-body > * + * {
+  margin-top: 1.1em;
+}
+
+.post-body h2 {
+  font-size: clamp(1.25rem, 3.6vw, 1.6rem);
+  line-height: 1.3;
+  margin-top: 2em;
+}
+
+.post-body h3 {
+  font-size: 1.15rem;
+  margin-top: 1.6em;
+}
+
+.post-body strong {
+  font-weight: 700;
+  color: var(--white);
+}
+
+.post-body a {
+  color: var(--blue-soft);
+  text-decoration: underline;
+  text-decoration-color: rgba(144, 202, 249, 0.4);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s ease, color 0.2s ease;
+}
+
+.post-body a:hover {
+  color: var(--blue-light);
+  text-decoration-color: currentColor;
+}
+
+.post-body ul,
+.post-body ol {
+  padding-left: 1.4em;
+}
+
+.post-body li + li {
+  margin-top: 0.45em;
+}
+
+.post-body li::marker {
+  color: var(--blue);
+}
+
+.post-quote {
+  padding: 20px 24px;
+  border-left: 3px solid var(--blue);
+  border-radius: 0 16px 16px 0;
+  background: var(--surface-subtle);
+}
+
+.post-quote p {
+  font-style: italic;
+}
+
+.post-quote cite {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  font-style: normal;
+  color: var(--muted);
+}
+
+/* Таблица цен */
+.post-table-wrap {
+  overflow-x: auto;
+  border-radius: 18px;
+  border: 1px solid var(--border-soft);
+}
+
+.post-prices {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.post-prices th,
+.post-prices td {
+  padding: 14px 18px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.post-prices th {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+}
+
+.post-prices tbody tr + tr td {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.post-prices td:nth-child(2) {
+  font-weight: 700;
+}
+
+.post-prices-trial td {
+  color: var(--blue-soft);
+}
+
+/* Расписание недели в статье */
+.post-schedule {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.post-schedule-day {
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-subtle);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.post-schedule-name {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.post-schedule-day ul {
+  list-style: none;
+  padding: 0;
+}
+
+.post-schedule-day li + li {
+  margin-top: 2px;
+}
+
+.post-schedule-day li span {
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+}
+
+.post-note {
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+/* Запись на пробное в конце статьи */
+.post-cta {
+  margin-top: 48px;
+  padding: 32px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: linear-gradient(150deg,
+    rgba(100, 181, 246, 0.22) 0%,
+    rgba(33, 150, 243, 0.1) 55%,
+    rgba(255, 255, 255, 0.04) 100%);
+  box-shadow: 0 0 40px rgba(33, 150, 243, 0.15);
+}
+
+.post-cta-kicker {
+  font-family: "Unbounded", sans-serif;
+  font-size: clamp(1.2rem, 3.6vw, 1.5rem);
+  line-height: 1.3;
+}
+
+.post-cta-text {
+  margin-top: 10px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.post-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.post-cta-note {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Об авторе */
+.post-author {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-top: 32px;
+  padding: 24px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-subtle);
+}
+
+.post-author img {
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid var(--border);
+}
+
+.post-author-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--blue-soft);
+}
+
+.post-author-name {
+  margin-top: 4px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 1.1rem;
+}
+
+.post-author-role {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.post-author-bio {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.post-author-bio a {
+  color: var(--blue-soft);
+  white-space: nowrap;
+}
+
+.post-related {
+  max-width: 1100px;
+  margin: 72px auto 0;
+}
+
+.post-related h2 {
+  font-size: clamp(1.3rem, 4vw, 1.9rem);
+  margin-bottom: 20px;
+}
+
+/* Хаб блога */
+.blog-hub {
+  padding: 0 6vw 80px;
+  max-width: calc(1100px + 12vw);
+  margin: 0 auto;
+}
+
+.blog-hub-head {
+  max-width: 760px;
+  margin-bottom: 24px;
+}
+
+.blog-hub-head h1 {
+  font-size: clamp(1.9rem, 6vw, 3.2rem);
+}
+
+.blog-hub-head p {
+  margin-top: 16px;
+  font-size: 1.08rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.blog-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.blog-chips a {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-subtle);
+  font-size: 0.88rem;
+  transition: background 0.2s ease;
+}
+
+.blog-chips a:hover {
+  background: var(--surface-strong);
+}
+
+.blog-group {
+  padding-top: 40px;
+  scroll-margin-top: 16px;
+}
+
+/* Внутри рубрики её название на карточке лишнее */
+.blog-group .post-card-cat {
+  display: none;
+}
+
+.blog-group .post-grid {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.blog-group h2 {
+  font-size: clamp(1.3rem, 4vw, 1.9rem);
+  margin-bottom: 20px;
+}
+
+.blog-hub-cta {
+  max-width: 760px;
+  margin-top: 64px;
+}
+
+@media (max-width: 640px) {
+  .blog-top,
+  .post,
+  .blog-hub {
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+
+  .blog-teaser .post-grid {
+    padding: 0 5vw;
+  }
+
+  .post-body {
+    font-size: 1.02rem;
+  }
+
+  .post-cta {
+    padding: 24px 20px;
+  }
+
+  .post-cta-actions .btn {
+    width: 100%;
+  }
+
+  .post-author {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .post-author img {
+    width: 72px;
+    height: 72px;
+  }
+
+  .post-prices th,
+  .post-prices td {
+    padding: 12px 12px;
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-teaser .post-grid {
+    padding: 0 4vw;
+  }
+}
+
 /* ══ Адаптив ══ */
 
 /* В средней зоне пять карточек ложатся как 4+1 — ровнее в три колонки */
@@ -2216,6 +2928,11 @@ h3 {
   .direction-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
+  }
+
+  /* Нечётное число карточек: последняя растягивается на всю строку, а не висит одна слева */
+  .direction:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
   }
 
   .hero {
