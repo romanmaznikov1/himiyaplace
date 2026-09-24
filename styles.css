@@ -146,7 +146,9 @@ h3 {
   letter-spacing: 0.08em;
   color: var(--text);
   text-shadow: 0 2px 16px rgba(10, 25, 41, 0.6);
-  margin: 0;
+  line-height: normal;
+  /* Подпись теперь внутри h1 (gap 8px), добираем до прежнего отступа .hero-content */
+  margin: 0 0 20px;
 }
 
 .hero-title {
@@ -2944,6 +2946,10 @@ h3 {
     gap: 24px;
   }
 
+  .hero-label {
+    margin-bottom: 16px;
+  }
+
   .hero-stats {
     gap: 32px;
   }
@@ -2968,6 +2974,10 @@ h3 {
   .hero-content {
     gap: 20px;
     align-items: center;
+  }
+
+  .hero-label {
+    margin-bottom: 12px;
   }
 
   .hero-stats {
