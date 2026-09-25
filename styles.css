@@ -2981,8 +2981,7 @@ h3 {
   }
 
   .hero-stats {
-    flex-direction: column;
-    gap: 20px;
+    gap: 40px;
   }
 
   .hero-stat-num {
