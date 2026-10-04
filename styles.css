@@ -711,6 +711,46 @@ h3 {
   margin-top: auto;
 }
 
+/* ══ Запись: Telegram + телефон ══ */
+
+.signup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+/* В карточке «Быстрая запись» кнопки одна под другой и прижаты к низу */
+.trial-card .signup-actions {
+  flex-direction: column;
+  margin-top: auto;
+}
+
+.trainers-cta .signup-actions {
+  justify-content: center;
+}
+
+.price-trial .signup-actions {
+  flex-shrink: 0;
+  justify-content: flex-end;
+}
+
+@media (max-width: 640px) {
+  .signup-actions {
+    flex-direction: column;
+  }
+
+  .signup-actions .btn {
+    width: 100%;
+  }
+}
+
 .trial-features {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -973,6 +1013,18 @@ h3 {
   align-items: center;
   text-align: center;
   gap: 8px;
+}
+
+/* Запись сразу под тренерами: посмотрел — записался */
+.trainers-cta {
+  padding: 36px 6vw 0;
+}
+
+/* На телефоне у секции свои поля 4vw — без второго отступа кнопки встают по краю ленты */
+@media (max-width: 480px) {
+  .trainers-cta {
+    padding: 28px 0 0;
+  }
 }
 
 .trainers-hint-sub {
@@ -1518,11 +1570,6 @@ h3 {
   color: var(--text);
   font-size: 0.87rem;
   line-height: 1.35;
-}
-
-.schedule-cta {
-  padding: 24px 6vw 0;
-  text-align: center;
 }
 
 /* ══ Контакты ══ */

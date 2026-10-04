@@ -25,6 +25,17 @@ const DEFAULT_OG = "/images/og-cover.jpg";
 const TELEGRAM = "https://t.me/himiyaadmin";
 const PHONE = { href: "tel:+79624333574", label: "+7 962 433 35 74" };
 
+// Записаться можно двумя способами — кнопки всегда идут парой (на главной та же разметка)
+const TG_ICON = `<svg class="btn-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21.8 3.3L2.9 10.6c-1.3.5-1.3 1.3-.2 1.6l4.8 1.5 1.9 5.7c.2.7.7.9 1.2.6l2.3-2.1 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.2-.5-1.8-1.6-1.7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`;
+const PHONE_ICON = `<svg class="btn-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.2 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const signupActions = (indent, cls = "signup-actions") => {
+  const i = " ".repeat(indent);
+  return `${i}<div class="${cls}">
+${i}  <a class="btn primary" href="${TELEGRAM}" target="_blank" rel="noopener noreferrer">${TG_ICON}Записаться в Telegram</a>
+${i}  <a class="btn ghost" href="${PHONE.href}">${PHONE_ICON}${PHONE.label}</a>
+${i}</div>`;
+};
+
 const PRICES = [
   { lessons: 4, total: 2400 },
   { lessons: 8, total: 3800 },
@@ -117,7 +128,7 @@ const indexHtml = readFileSync(indexPath, "utf8");
 const directionsCount = indexHtml.split('<div class="direction">').length - 1;
 
 const schedule = (() => {
-  const section = indexHtml.split('class="schedule-grid"')[1]?.split('class="schedule-cta"')[0];
+  const section = indexHtml.split('class="schedule-grid"')[1]?.split("</section>")[0];
   if (!section) throw new Error("В index.html не найдено расписание (.schedule-grid)");
   return section
     .split('class="schedule-day">')
@@ -442,10 +453,7 @@ ${p.html
       <aside class="post-cta" aria-label="Запись на пробное занятие">
         <p class="post-cta-kicker">Пробное занятие — ${rub(TRIAL_PRICE)}</p>
         <p class="post-cta-text">${inline(p.cta, p.file)}</p>
-        <div class="post-cta-actions">
-          <a class="btn primary" href="${TELEGRAM}" target="_blank" rel="noopener noreferrer">Записаться в Telegram</a>
-          <a class="btn ghost" href="${PHONE.href}">${PHONE.label}</a>
-        </div>
+${signupActions(8, "post-cta-actions signup-actions")}
         <p class="post-cta-note">Отвечаем за 10 минут · просп. Кулакова, 29Д</p>
       </aside>
 
@@ -518,10 +526,7 @@ ${groups
     <aside class="post-cta blog-hub-cta" aria-label="Запись на пробное занятие">
       <p class="post-cta-kicker">Пробное занятие — ${rub(TRIAL_PRICE)}</p>
       <p class="post-cta-text">Лучше один раз попробовать, чем прочитать 25 статей. Тренер подберёт направление и группу по уровню.</p>
-      <div class="post-cta-actions">
-        <a class="btn primary" href="${TELEGRAM}" target="_blank" rel="noopener noreferrer">Записаться в Telegram</a>
-        <a class="btn ghost" href="${PHONE.href}">${PHONE.label}</a>
-      </div>
+${signupActions(6, "post-cta-actions signup-actions")}
     </aside>
   </main>`;
 
@@ -618,7 +623,7 @@ const pricesSection = () => {
           <p class="price-trial-title">Пробное занятие — ${rub(TRIAL_PRICE)}</p>
           <p class="price-trial-text">60 минут в группе, знакомство с тренером и подбор направления. Покупать абонемент после пробного не обязательно.</p>
         </div>
-        <a class="btn primary" href="${TELEGRAM}" target="_blank" rel="noopener noreferrer">Записаться в Telegram</a>
+${signupActions(8)}
       </div>
       <script type="application/ld+json">
 ${JSON.stringify(schema, null, 2).replace(/^/gm, "      ")}

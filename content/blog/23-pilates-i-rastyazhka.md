@@ -7,7 +7,7 @@ category: prep
 author: milena
 date: 2026-09-25
 related: tancy-vmesto-sportzala, rezultaty-tancev, tancy-ili-gimnastika
-cta: Спросите в Telegram ближайшие даты пилатеса и растяжки.
+cta: Спросите в Telegram или по телефону ближайшие даты пилатеса и растяжки.
 ---
 
 Многие приходят только «потанцевать» и пропускают поддерживающие классы. А зря — именно они часто дают самый быстрый скачок в технике.
