@@ -14,6 +14,7 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 import { tmpdir } from "node:os";
+import { createHash } from "node:crypto";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = "https://himiyaplace.ru";
@@ -101,6 +102,10 @@ const formatDate = (iso) => {
 const joinRu = (items) => (items.length < 2 ? items.join("") : `${items.slice(0, -1).join(", ")} и ${items.at(-1)}`);
 const photoUrl = (name, size = "-300w") => encodeURI(`/images/coaches/webp/${name}${size}.webp`);
 const postUrl = (post) => `/blog/${post.slug}/`;
+// ?v=<хэш содержимого>: поменялся файл — поменялась ссылка, и браузер не держит старую копию из кэша
+const assetVersion = (file) => createHash("md5").update(readFileSync(join(ROOT, file))).digest("hex").slice(0, 8);
+const CSS_VERSION = assetVersion("styles.css");
+const JS_VERSION = assetVersion("script.js");
 const jsonLd = (data) => `<script type="application/ld+json">\n${JSON.stringify(data, null, 2)}\n</script>`;
 
 /* ---------- Расписание из index.html ---------- */
@@ -322,7 +327,7 @@ ${extraHead}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Unbounded:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/styles.css?v=${CSS_VERSION}" />
 
 ${schema.map(jsonLd).join("\n")}
 </head>
@@ -367,7 +372,7 @@ ${body}
     </div>
   </footer>
 
-  <script src="/script.js"></script>
+  <script src="/script.js?v=${JS_VERSION}"></script>
 </body>
 </html>
 `;
@@ -636,6 +641,9 @@ const updateIndex = () => {
     </section>`;
   let next = replaceBlock(indexHtml, "blog:featured", teaser);
   next = replaceBlock(next, "prices", pricesSection());
+  next = next
+    .replace(/href="styles\.css(?:\?v=\w*)?"/, `href="styles.css?v=${CSS_VERSION}"`)
+    .replace(/src="script\.js(?:\?v=\w*)?"/, `src="script.js?v=${JS_VERSION}"`);
   if (next !== indexHtml) writeFileSync(indexPath, next);
 };
 
