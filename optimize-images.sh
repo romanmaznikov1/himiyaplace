@@ -80,6 +80,23 @@ magick "$LOGO" -resize 480x -quality 80 -strip "$LOGO_WEBP_DIR/himiya-cyrillic-4
 echo "  Done: logo"
 
 echo ""
+echo "=== Optimizing halls ==="
+
+# Исходники кладём в images/halls/originals/ (в git не попадают)
+HALLS_DIR="images/halls"
+mkdir -p "$HALLS_DIR/optimized" "$HALLS_DIR/webp"
+
+for img in "$HALLS_DIR"/originals/*.png "$HALLS_DIR"/originals/*.jpg; do
+  [ -f "$img" ] || continue
+  basename=$(basename "${img%.*}")
+  for w in 720 1400; do
+    magick "$img" -resize ${w}x -quality 82 -interlace Plane -strip "$HALLS_DIR/optimized/${basename}-${w}w.jpg"
+    magick "$img" -resize ${w}x -quality 80 -strip "$HALLS_DIR/webp/${basename}-${w}w.webp"
+  done
+  echo "  Done: $basename"
+done
+
+echo ""
 echo "=== Results ==="
 echo "Coach originals:"
 du -sh "$COACHES_DIR"/*.jpg 2>/dev/null || true
