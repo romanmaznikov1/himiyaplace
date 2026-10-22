@@ -1,0 +1,138 @@
+/* Локальные анимации секции «Направления». Только transform / opacity / clip-path небольших слоёв. */
+
+/* эквалайзер в ритме BPM */
+@keyframes dir-eq {
+  0%, 100% { transform: scaleY(0.25); }
+  14% { transform: scaleY(1); }
+  50% { transform: scaleY(0.45); }
+}
+.dir-eq {
+  transform-origin: 50% 100%;
+  animation: dir-eq calc(60s / var(--bpm, 120)) var(--ease-punch) infinite;
+}
+
+/* контемп: кадр медленно «дышит» и плывёт */
+@keyframes dir-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(0, -14px, 0) rotate(-1.2deg); }
+}
+.dir-float {
+  animation: dir-float calc(60s / var(--bpm, 72) * 8) cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+/* электро: сканирующая полоса */
+@keyframes dir-scan {
+  from { transform: translate3d(0, -50%, 0); }
+  to { transform: translate3d(0, 50%, 0); }
+}
+.dir-scanbar {
+  background: linear-gradient(
+    to bottom,
+    transparent 0 48%,
+    rgb(31 242 255 / 0.06) 49.2%,
+    rgb(31 242 255 / 0.28) 50%,
+    transparent 50.4%
+  );
+  animation: dir-scan calc(60s / var(--bpm, 128) * 8) linear infinite;
+}
+
+/* электро: RGB-сдвиг заголовка — короткие вспышки на сильные доли */
+@keyframes dir-glitch-a {
+  0%, 7%, 14%, 51%, 56%, 100% { clip-path: inset(0 0 100% 0); transform: translate3d(0, 0, 0); }
+  8% { clip-path: inset(8% 0 62% 0); transform: translate3d(-0.05em, 0, 0); }
+  10% { clip-path: inset(58% 0 14% 0); transform: translate3d(0.06em, 0, 0); }
+  12% { clip-path: inset(30% 0 46% 0); transform: translate3d(-0.03em, 0, 0); }
+  52% { clip-path: inset(70% 0 4% 0); transform: translate3d(0.04em, 0, 0); }
+  54% { clip-path: inset(18% 0 66% 0); transform: translate3d(-0.06em, 0, 0); }
+}
+@keyframes dir-glitch-b {
+  0%, 7%, 14%, 51%, 56%, 100% { clip-path: inset(0 0 100% 0); transform: translate3d(0, 0, 0); }
+  8% { clip-path: inset(44% 0 30% 0); transform: translate3d(0.07em, 0, 0); }
+  11% { clip-path: inset(4% 0 80% 0); transform: translate3d(-0.05em, 0, 0); }
+  13% { clip-path: inset(66% 0 10% 0); transform: translate3d(0.03em, 0, 0); }
+  53% { clip-path: inset(36% 0 40% 0); transform: translate3d(-0.05em, 0, 0); }
+}
+.dir-glitch-a,
+.dir-glitch-b {
+  clip-path: inset(0 0 100% 0);
+  /* вспышки раз в 8 долей (было 4): реже — без ощущения мерцания при скролле */
+  animation-duration: calc(60s / var(--bpm, 128) * 8);
+  animation-timing-function: steps(1, end);
+  animation-iteration-count: infinite;
+}
+.dir-glitch-a { animation-name: dir-glitch-a; }
+.dir-glitch-b { animation-name: dir-glitch-b; animation-delay: calc(60s / var(--bpm, 128) * -0.5); }
+
+/* электро: кадр иногда «дёргается» по шагам */
+@keyframes dir-jitter {
+  0%, 46%, 50%, 92%, 100% { transform: translate3d(0, 0, 0); }
+  47% { transform: translate3d(-6px, 2px, 0); }
+  48% { transform: translate3d(5px, -3px, 0); }
+  49% { transform: translate3d(-2px, 0, 0); }
+  93% { transform: translate3d(4px, 0, 0); }
+  94% { transform: translate3d(-3px, 1px, 0); }
+}
+.dir-jitter {
+  animation: dir-jitter calc(60s / var(--bpm, 128) * 8) steps(1, end) infinite;
+}
+
+/* хилс: блик пробегает по кадру */
+@keyframes dir-sheen {
+  0%, 62% { transform: translate3d(-130%, 0, 0) skewX(-18deg); }
+  100% { transform: translate3d(230%, 0, 0) skewX(-18deg); }
+}
+.dir-sheen {
+  animation: dir-sheen calc(60s / var(--bpm, 100) * 8) cubic-bezier(0.6, 0, 0.2, 1) infinite;
+}
+
+/* ---------- состояние панелей стопки (ставит usePanelState, без перерисовки React) ---------- */
+
+/* накрыта целиком следующей: под непрозрачной панелью её не видно — не рисуем вовсе */
+[data-dir-covered] {
+  visibility: hidden;
+}
+
+/* ниже экрана или накрыта: декоративные петли выключены (не пауза — у выключенных нет и своих
+   композитных слоёв). Перечислены сами анимированные узлы, а не «[data-dir-idle] *»: переключение
+   атрибута пересчитывает стиль только у них, а не у всех ~250 узлов панели. svg — шевроны (Chevrons
+   задаёт анимацию инлайном, поэтому !important). При повторном включении петли стартуют с начала —
+   в этот момент панель вне экрана, сброс фазы не виден. */
+[data-dir-idle] .dir-eq,
+[data-dir-idle] .dir-float,
+[data-dir-idle] .dir-scanbar,
+[data-dir-idle] .dir-jitter,
+[data-dir-idle] .dir-sheen,
+[data-dir-idle] .dir-glitch-a,
+[data-dir-idle] .dir-glitch-b,
+[data-dir-idle] .animate-beat,
+[data-dir-idle] .animate-marquee,
+[data-dir-idle] .animate-marquee-rev,
+[data-dir-idle] svg {
+  animation: none !important;
+}
+
+/* бегущая строка интро: дорожку двигает JS (VelocityMarquee) каждый кадр — свой слой, иначе огромный
+   текст перерастрируется на главном потоке (≈240 Paint и 230 растр-задач за 2.5 с против 0) */
+[data-dir-marquee] .w-max {
+  will-change: transform;
+}
+
+/* шевроны с положительной задержкой до своего такта показывают ключевой кадр 0% (приглушённый),
+   а не базовую полную яркость: при въезде панели они не вспыхивают все разом */
+@media (prefers-reduced-motion: no-preference) {
+  #directions svg {
+    animation-fill-mode: backwards !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dir-eq,
+  .dir-float,
+  .dir-scanbar,
+  .dir-jitter,
+  .dir-sheen,
+  .dir-glitch-a,
+  .dir-glitch-b {
+    animation: none !important;
+  }
+}

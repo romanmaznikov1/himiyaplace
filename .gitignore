@@ -1,0 +1,16 @@
+node_modules
+dist
+.DS_Store
+.shots
+
+# референсы дизайна (чужие работы с Behance) — только локально, в публичный репозиторий не идут
+/040df8230501161.69d387b94d410.png
+/bfc4d2230501161.69d387b9506ae.png
+/e1457a230501161.69d387b94ded3.webp
+# исходники медиа: обработанные версии уже лежат в public/media (flat_logo.png остаётся — из него режет scripts/cut-flat-logo.py)
+/coach*.png
+/hiphop.png
+/highheels.png
+/contemp.png
+/electro.png
+/khimiya-loop-web/

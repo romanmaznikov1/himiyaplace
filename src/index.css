@@ -1,0 +1,407 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+/* ------------------------------------------------------------------
+   Шрифты — свои @font-face вместо полных наборов fontsource (там 25 правил и все подмножества:
+   latin-ext качался ради одного «₽», greek — ради шума ScrambleText, граффити — целиком ради пары слов).
+   Файлы в public/fonts/ собирает scripts/subset-fonts.py; Sofia preload-ится в index.html.
+   ------------------------------------------------------------------ */
+@font-face {
+  font-family: "Sofia Sans Extra Condensed Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("/fonts/sofia-cyrillic.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Sofia Sans Extra Condensed Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("/fonts/sofia-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter Tight Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("/fonts/inter-tight-cyrillic.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Inter Tight Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("/fonts/inter-tight-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* только «₽» (1 KB вместо 88 KB latin-ext); у Sofia знака рубля нет — там он из следующего шрифта стека */
+@font-face {
+  font-family: "Inter Tight Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("/fonts/inter-tight-rub.woff2") format("woff2");
+  unicode-range: U+20BD;
+}
+/* граффити: урезаны до нужных символов (см. scripts/subset-fonts.py) */
+@font-face {
+  font-family: "Rubik Glitch";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("/fonts/rubik-glitch.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Rubik Wet Paint";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("/fonts/rubik-wet-paint.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Sedgwick Ave Display";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("/fonts/sedgwick-ave-display.woff2") format("woff2");
+}
+
+/* ------------------------------------------------------------------
+   ХИМИЯ — design tokens
+   ink      — фон страницы, совпадает с фоном видео логотипа (#03060D)
+   toxic    — токсичный голубой, главный акцент (роль лаймового в референсах)
+   cobalt   — электрический синий, кнопки и плашки (роль красного в референсах)
+   sky      — цвет самого логотипа
+   ------------------------------------------------------------------ */
+@theme {
+  --color-ink: #03060d;
+  --color-ink-900: #060b16;
+  --color-ink-800: #0a1222;
+  --color-ink-700: #111c33;
+  --color-ink-600: #1a2846;
+  --color-line: rgb(150 190 255 / 0.14);
+
+  --color-toxic: #1ff2ff;
+  --color-toxic-soft: #8cf8ff;
+  --color-toxic-deep: #00b8d4;
+  --color-sky: #0fc3f8;
+  --color-ice: #d6f6ff;
+  --color-cobalt: #0a57ff;
+  --color-cobalt-deep: #0038c8;
+  --color-ultra: #0b1f8f;
+  --color-paper: #eaf4ff;
+  --color-mute: #8ea3c4;
+
+  --font-display: "Sofia Sans Extra Condensed Variable", "Oswald", "Arial Narrow", sans-serif;
+  --font-sans: "Inter Tight Variable", "Inter", system-ui, -apple-system, sans-serif;
+  --font-drip: "Rubik Wet Paint", "Sofia Sans Extra Condensed Variable", sans-serif;
+  --font-glitch: "Rubik Glitch", "Sofia Sans Extra Condensed Variable", sans-serif;
+  --font-tag: "Sedgwick Ave Display", cursive; /* латиница only */
+
+  --ease-snap: cubic-bezier(0.2, 0.9, 0.1, 1);
+  --ease-punch: cubic-bezier(0.7, 0, 0.2, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-marquee: marquee var(--marquee-dur, 18s) linear infinite;
+  --animate-marquee-rev: marquee var(--marquee-dur, 18s) linear infinite reverse;
+  --animate-beat: beat calc(60s / var(--bpm, 120)) var(--ease-punch) infinite;
+  --animate-flicker: flicker 3.2s steps(1) infinite;
+
+  @keyframes marquee {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+  }
+  @keyframes beat {
+    0% { transform: scale(1); }
+    12% { transform: scale(var(--beat-scale, 1.06)); }
+    40% { transform: scale(1); }
+    100% { transform: scale(1); }
+  }
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    41% { opacity: 1; }
+    42% { opacity: 0.35; }
+    43% { opacity: 1; }
+    76% { opacity: 1; }
+    77% { opacity: 0.6; }
+    78% { opacity: 1; }
+  }
+}
+
+@layer base {
+  html {
+    background: var(--color-ink);
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: auto;
+  }
+  body {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-toxic);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-toxic);
+    outline-offset: 3px;
+  }
+  /* на светлых фонах токсичная обводка не видна */
+  .bg-toxic :focus-visible,
+  .bg-ice :focus-visible,
+  .bg-paper :focus-visible {
+    outline-color: var(--color-ink);
+  }
+  img,
+  video {
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  /* Заголовки в духе референсов: высокий узкий гротеск, капс, плотный интерлиньяж */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 0.84;
+    letter-spacing: -0.01em;
+    font-kerning: normal;
+  }
+  /* Мелкие служебные подписи: Inter Tight, капс, разрядка */
+  .label {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    line-height: 1.2;
+  }
+}
+
+@layer utilities {
+  /* контур берёт цвет из currentColor: text-outline text-cobalt → синяя обводка без заливки */
+  .text-outline {
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: var(--stroke, 1.5px) currentColor;
+    paint-order: stroke fill;
+  }
+  .text-outline-toxic {
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: var(--stroke, 1.5px) var(--color-toxic);
+  }
+  .glow-toxic {
+    text-shadow:
+      0 0 0.18em rgb(31 242 255 / 0.55),
+      0 0 0.6em rgb(31 242 255 / 0.25);
+  }
+  .shadow-hard {
+    box-shadow: 6px 6px 0 0 var(--shadow-color, var(--color-toxic));
+  }
+  /* Полутоновая сетка точек, цвет берётся из currentColor */
+  .halftone {
+    background-image: radial-gradient(currentColor 1.1px, transparent 1.7px);
+    background-size: var(--dot, 7px) var(--dot, 7px);
+  }
+  .halftone-fade {
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 0%, transparent 70%);
+    mask-image: radial-gradient(ellipse at center, #000 0%, transparent 70%);
+  }
+  /* Диагональная «сигнальная» лента */
+  .hazard {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--hz-a, var(--color-toxic)) 0 14px,
+      var(--hz-b, var(--color-ink)) 14px 28px
+    );
+  }
+  .scanlines {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgb(255 255 255 / 0.05) 0 1px,
+      transparent 1px 3px
+    );
+  }
+  /* Боковые поля с учётом выреза/скруглений iPhone в ландшафте (viewport-fit=cover):
+     px-safe = px-5, но не меньше safe-area-inset; md:px-10 / xl:px-16 работают как обычно. */
+  .px-safe {
+    padding-left: max(1.25rem, env(safe-area-inset-left));
+    padding-right: max(1.25rem, env(safe-area-inset-right));
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Общие keyframes компонентов (раньше — <style> в каждом экземпляре)
+   ------------------------------------------------------------------ */
+@keyframes chev-run {
+  0%, 100% { opacity: 0.25; }
+  18% { opacity: 1; }
+  45% { opacity: 0.25; }
+}
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -4%); }
+  60% { transform: translate(-4%, -1%); }
+  80% { transform: translate(3%, 3%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Зерно: на телефоне — обычное наложение, бледнее и без дрожи; от md — overlay и «плёночная» дрожь */
+.grain {
+  opacity: calc(var(--grain-o, 0.075) * 0.5);
+}
+@media (min-width: 768px) {
+  .grain {
+    opacity: var(--grain-o, 0.075);
+    mix-blend-mode: overlay;
+    animation: grain-shift 0.9s steps(5) infinite;
+  }
+}
+
+/* Секции вне экрана: CSS-анимации (шевроны, бегущие ленты, пульсы) стоят на паузе.
+   Атрибут ставит App через IntersectionObserver (а секции — на своих накрытых панелях).
+   Селектор перечисляет только анимированные классы: «[data-offscreen] *» при каждом переключении
+   пересчитывал стили всего поддерева (Directions ≈ 1100 узлов — 20–40 мс на телефоне, рывок на границе секций).
+   Новая CSS-анимация в секции — добавьте элементу класс .anim (или его класс в этот список). */
+[data-offscreen]
+  :is(
+    .anim,
+    .animate-marquee,
+    .animate-marquee-rev,
+    .animate-beat,
+    .animate-pulse,
+    .animate-ping,
+    .animate-spin,
+    .animate-bounce,
+    .animate-flicker,
+    .stamp-spin,
+    .contact-spin,
+    .footer-spin,
+    .dir-eq,
+    .dir-float,
+    .dir-scanbar,
+    .dir-jitter,
+    .dir-sheen,
+    .dir-glitch-a,
+    .dir-glitch-b
+  ) {
+  animation-play-state: paused !important;
+}
+
+/* ------------------------------------------------------------------
+   Телефоны и планшеты (тач / узкий экран): секции ниже «Направлений» вне экрана не рисуются
+   (content-visibility: auto). Раньше браузер каждый кадр скролла заново раскладывал по слоям
+   все ~18 000 px страницы (PaintArtifactCompositor — треть времени кадра на телефоне).
+   - contain-intrinsic-size: auto — браузер помнит настоящую высоту секции после первой отрисовки;
+     App включает html.cv-ready только когда все секции смонтированы и хотя бы раз отрисованы,
+     поэтому якоря и восстановление скролла считают по настоящим высотам, а не по оценке.
+   - paint containment обрезал бы рваные края, вылезающие над секцией: overflow-clip-margin
+     их возвращает. Где его нет (Safari) — правило не включаем вовсе.
+   ------------------------------------------------------------------ */
+:where(#coaches, #prices, #halls, #location, #contact, #root > footer) {
+  contain-intrinsic-size: auto 100vw auto 150svh;
+}
+@supports (content-visibility: auto) and (overflow-clip-margin: 1px) {
+  @media (hover: none), (max-width: 767px) {
+    html.cv-ready :where(#coaches, #prices, #halls, #location, #contact, #root > footer) {
+      content-visibility: auto;
+      overflow-clip-margin: 160px;
+    }
+  }
+}
+
+/* Старые Safari (< 16) не знают overflow: clip — без фолбэка страница ездила бы вбок
+   из-за декора за краями. hidden только на html/body: на секциях он сломал бы sticky в «Направлениях». */
+@supports not (overflow: clip) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* Статическая копия контента для поисковиков без JS (см. src/lib/seo-markup.ts):
+   при включённом JS она визуально скрыта и заменяется приложением при монтировании. */
+html:not(.js) #seo-static {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+  line-height: 1.6;
+  font-size: 1.0625rem;
+}
+html:not(.js) #seo-static :is(h1, h2, h3) {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.9;
+  margin: 2.2em 0 0.5em;
+}
+html:not(.js) #seo-static h1 {
+  font-size: clamp(3rem, 12vw, 6rem);
+  color: var(--color-toxic);
+  margin-top: 0.6em;
+}
+html:not(.js) #seo-static h2 {
+  font-size: clamp(2.2rem, 8vw, 3.6rem);
+  color: var(--color-toxic);
+}
+html:not(.js) #seo-static h3 {
+  font-size: 1.8rem;
+}
+html:not(.js) #seo-static :is(p, ul, address) {
+  margin: 0.6em 0;
+  color: var(--color-paper);
+}
+html:not(.js) #seo-static ul {
+  padding-left: 1.2em;
+  list-style: square;
+}
+html:not(.js) #seo-static nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em 1.2em;
+  padding: 0;
+  list-style: none;
+}
+html:not(.js) #seo-static a {
+  color: var(--color-toxic);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+html:not(.js) #seo-static address {
+  font-style: normal;
+}
+.js #seo-static {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
