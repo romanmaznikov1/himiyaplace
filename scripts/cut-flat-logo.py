@@ -5,13 +5,14 @@ flat_logo.png (голубой логотип на чёрном, без альф�
   - flat-logo-{240,640,1280}.{webp,png} — логотип на прозрачном фоне (тег «Химия» в тренерах, подпись в футере);
   - cursor-x.webp / cursor-x.png       — буква «Х» из логотипа для курсора: с чернильной обводкой
                                           и жёсткой тенью, чтобы читалась и на светлых панелях.
-    Точку клика (пересечение штрихов) скрипт печатает в долях — она прописана в Cursor.tsx (HOT).
+  - src/components/layout/cursor-x.ts  — точка клика (пересечение штрихов) и контур той же «Х» в SVG:
+                                          ею курсор обводит кнопки и ссылки тонкой линией.
 
 Альфа — по яркости: фон чёрный (шум ≤ 8), заливки логотипа — синий канал ≈ 240–255;
 полупрозрачные края «размножаем» обратно на долю покрытия, чтобы не было тёмной каймы.
 Логотип почти плоский (3 цвета + сглаживание): палитра 64 цвета, webp без потерь — в 3–5 раз легче.
 
-Запуск (нужны Pillow, numpy, scipy и cwebp):
+Запуск (нужны Pillow, numpy, scipy, scikit-image и cwebp):
   python3 scripts/cut-flat-logo.py
 """
 from __future__ import annotations
@@ -22,6 +23,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 from scipy import ndimage
+from skimage import measure
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "public/media/logo"
@@ -93,3 +95,25 @@ cy = np.mean([r[0] for r in rows]) + m
 cx = np.mean([r[1] for r in rows]) + m
 full_w, full_h = letter.shape[1], letter.shape[0]
 print(f"cursor-x: {cur.width}×{cur.height}  hotspot {cx / full_w:.3f} {cy / full_h:.3f}")
+
+# контур «Х» по самой заливке (без обводки и тени) — в координатах той же рамки, что и картинка курсора;
+# допуск упрощения 1 px исходника ≈ 0.1 px на экране
+paths = []
+for c in measure.find_contours(np.pad(a, 1), 0.5):
+    if len(c) < 30:
+        continue
+    pts = measure.approximate_polygon(c, 1.0)[:-1] - 1
+    paths.append("M" + "L".join(f"{x:.1f} {y:.1f}" for y, x in pts) + "Z")
+(ROOT / "src/components/layout/cursor-x.ts").write_text(f'''// Сгенерировано scripts/cut-flat-logo.py — руками не править.
+
+/** Рамка картинки cursor-x в пикселях исходника — viewBox контура */
+export const X_BOX = {{ w: {full_w}, h: {full_h} }};
+
+/** Точка клика — пересечение штрихов «Х», в долях рамки */
+export const X_HOT = {{ x: {cx / full_w:.3f}, y: {cy / full_h:.3f} }};
+
+/** Контур заливки «Х» (без обводки и тени) — ею курсор тонкой линией обводит кнопки и ссылки */
+export const X_PATH =
+  "{"".join(paths)}";
+''')
+print(f"cursor-x.ts: {sum(p.count('L') + 1 for p in paths)} точек контура")

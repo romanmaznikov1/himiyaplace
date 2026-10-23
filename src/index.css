@@ -166,6 +166,12 @@
   video {
     max-width: 100%;
   }
+  /* iOS без автозапуска (режим энергосбережения) рисует поверх видео без controls кнопку ▶: у фоновых петель
+     её быть не должно, у интервью тренеров своя кнопка */
+  video:not([controls])::-webkit-media-controls-start-playback-button {
+    display: none !important;
+    -webkit-appearance: none;
+  }
 }
 
 @layer components {

@@ -7,7 +7,7 @@ import { SectionLabel } from "@/components/ui/section-label";
 import { Spray } from "@/components/ui/spray";
 import { TornEdge } from "@/components/ui/torn-edge";
 import { VelocityMarquee } from "@/components/ui/velocity-marquee";
-import { DIRECTIONS } from "@/lib/content";
+import { DIRECTIONS, MEDIA } from "@/lib/content";
 import { ty } from "@/lib/typograph";
 import { cn } from "@/lib/utils";
 
@@ -40,7 +40,7 @@ export function Intro({
       <TornEdge side="top" color="var(--color-ink-800)" fiber="var(--color-paper)" height={64} seed={5} density={60} />
 
       <div className="relative overflow-hidden pb-20 pt-16 md:pb-24 md:pt-24">
-        {/* декор: мазок кобальта за заголовком, полутон, граффити-тег */}
+        {/* декор: мазок кобальта за заголовком, полутон */}
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <Spray
             seed={21}
@@ -55,12 +55,30 @@ export function Intro({
           <SectionLabel index="01" label="Направления" />
           <div className="relative">
             <MotionBlurTitle as="h2" text="Направления" className="mt-4 -ml-[0.04em] text-[18.4vw] text-paper md:mt-6" />
-            <span
+            {/*
+              наклейка: плоский логотип с подтёками — небольшой, сбоку под концом заголовка. На телефоне — у правого
+              края, правее тире в «4 направления —»; уже 375px места рядом с ним нет, там её не ставим
+            */}
+            <picture
               aria-hidden
-              className="font-tag absolute -bottom-[0.95em] right-[4%] rotate-[-9deg] text-[12vw] leading-none text-toxic md:-bottom-[0.6em] md:text-[6.5vw]"
+              className="pointer-events-none absolute -bottom-[13vw] -right-[4vw] w-[20vw] rotate-[-8deg] max-[374px]:hidden md:-bottom-[3.4vw] md:right-[3%] md:w-[11vw] md:max-w-[190px]"
             >
-              flow
-            </span>
+              <source
+                type="image/webp"
+                srcSet={`${MEDIA.logoFlat.w240} 240w, ${MEDIA.logoFlat.w640} 640w`}
+                sizes="(min-width: 768px) min(11vw, 190px), 20vw"
+              />
+              <img
+                src={MEDIA.logoFlat.smallPng}
+                width={1551}
+                height={845}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                draggable={false}
+                className="block h-auto w-full drop-shadow-[0_3px_0_var(--color-ink)]"
+              />
+            </picture>
           </div>
 
           <div className="mt-8 grid gap-8 md:mt-12 lg:grid-cols-12 lg:items-end lg:gap-6">

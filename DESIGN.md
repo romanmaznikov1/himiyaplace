@@ -55,7 +55,8 @@
 - `font-sans` — Inter Tight (переменный) для текста 15–18px, `leading-relaxed`, и подписей (`.label`).
 - `font-drip` — Rubik Wet Paint: граффити-подтёки. Редко, как тег/акцент (1–2 раза на страницу). Тег «Химия» в тренерах теперь — картинка flat_logo.
 - `font-glitch` — Rubik Glitch: **только** в направлении «Электро».
-- `font-tag` — Sedgwick Ave Display: граффити-тег, **только латиница** (`flow`, `vibe`, `himiya`, `street`).
+- `font-tag` — Sedgwick Ave Display: граффити-тег, **только латиница** (`vibe`, `himiya`, `street`).
+  Вместо тега `flow` в направлениях теперь наклейка flat_logo.
 - Цифры цен и счётчиков — `tabular-nums`.
 - Шрифты лежат в `public/fonts` урезанными (только latin + cyrillic, граффити — только нужные символы).
   Поменяли слоган «Электро», граффити-слово или добавили новый тег — перезапустите
@@ -126,7 +127,9 @@
 - `MarqueeAlongSvgPath` (21st.dev, адаптирован) — элементы бегут по SVG-пути; `renderPath` рисует саму ленту
 - `StackingCards` + `StackingCardItem` (21st.dev, адаптирован) + `useStackingCardProgress()` → `{ index, local }`
 - `Spray({ seed, color, drips, dots, thickness })` — держите пропорцию блока ≈ 5:2 (`aspect-[5/2]`)
-- `LoopVideo({ src, webm, poster, eager })` — грузится у экрана, пауза вне экрана; `Duotone({ shadow, highlight })`
+- `LoopVideo({ src, webm, poster, eager, fallback })` — грузится у экрана, пауза вне экрана. Автозапуск запрещён
+  (iOS в энергосбережении) — показывает `fallback` (анимированный AVIF), без него постер и старт с первого касания;
+  кнопку ▶ поверх видео без `controls` прячет index.css. `Duotone({ shadow, highlight })`
 - `StickerButton({ href, variant, tilt, size, icon })` + иконки `TelegramIcon`, `PhoneIcon`, `PinIcon`, `ArrowIcon`
 - `Magnetic({ strength })`, `ScrambleText({ text })`, `Reveal({ kind, delay })`, `Chevrons({ count, bpm })`
 - `ImageTrail({ images, every, life, size })` — шлейф фото за курсором
@@ -153,9 +156,16 @@
 
 - `logo/khimiya-loop-dark.{webm,mp4,jpg}` — стекающий логотип, 1920×1080, 6 с, бесшовный, фон #03060D;
   логотип занимает ≈ 62% ширины кадра по центру. `logo/himiya-{900,320}.{webp,png}` — статичный логотип с прозрачностью.
-- `logo/flat-logo-{240,640,1280}.{webp,png}` — плоский логотип с подтёками (тег «Химия» в тренерах, подпись в футере),
+- `logo/khimiya-loop-dark-720.avif` — та же петля анимированным AVIF (1280×720, 24 к/с, 156 KB) для hero, когда видео
+  не запускается само. Пересобрать: `ffmpeg -i khimiya-loop-dark-720.mp4 -vf "fps=24,format=yuv420p" -c:v libsvtav1
+  -crf 38 -preset 4 -color_primaries bt709 -color_trc bt709 -colorspace bt709 -loop 0 -f avif khimiya-loop-dark-720.avif`.
+- `logo/flat-logo-{240,640,1280}.{webp,png}` — плоский логотип с подтёками (логотип в шапке телефона, наклейки
+  в направлениях и тренерах, подпись в футере),
   `logo/cursor-x.webp` — его буква «Х» для курсора. Всё режется из `flat_logo.png` скриптом
-  `python3 scripts/cut-flat-logo.py`; он же печатает точку клика «Х» — она прописана в `Cursor.tsx` (`HOT`).
+  `python3 scripts/cut-flat-logo.py`; он же пишет `src/components/layout/cursor-x.ts` — точку клика «Х» и её контур
+  в SVG (над кнопками и ссылками курсор вместо кольца обводит себя увеличенной «Х» тонкой линией).
+- `directions/photos/{id}-{900,480}.webp` + `-900.jpg` — иллюстрации направлений 3:4 из `{id}.png` в корне
+  (исходники не в git). «Электро» отзеркалена: иначе номер «04» в углу карточки закрывал руку.
 - `directions/{hiphop,heels,contemp,electro}.{mp4,jpg}` — 9 с танцевальных петель 540×960, **чёрно-белые**
   (красить через `Duotone` или blend-режимы). Хип-хоп — Милена, хилс — Анна, контемп и электро — тренеры студии.
 - `coaches/{milena,veronika,anna,liza,mikhail}-{1000,560}.webp` + `-1000.jpg` — портреты 4:5 на синем фоне.

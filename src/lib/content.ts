@@ -12,7 +12,8 @@ export const CONTACTS = {
   phone: { display: "+7 962 433 35 74", tel: "tel:+79624333574" },
   city: "Ставрополь",
   studio: "Студия «Север»",
-  address: "просп. Кулакова, 29Д",
+  /** Без «просп.» — так короче и в постере, и в футере; полный адрес — в JSON-LD (index.html) */
+  address: "Кулакова, 29Д",
   mapsUrl: "https://yandex.ru/maps/?text=%D0%BF%D1%80%D0%BE%D1%81%D0%BF.+%D0%9A%D1%83%D0%BB%D0%B0%D0%BA%D0%BE%D0%B2%D0%B0+29%D0%94+%D0%A1%D1%82%D0%B0%D0%B2%D1%80%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C",
   /** Виджет конструктора Яндекс Карт с метками студии (тот же, что на текущем сайте). */
   mapWidget:
@@ -347,6 +348,9 @@ export const MEDIA = {
       mp4: "/media/logo/khimiya-loop-dark-720.mp4",
       poster: "/media/logo/khimiya-loop-dark-720.webp",
     },
+    /** Та же петля анимированным AVIF (1280×720, 24 к/с, 156 KB) — когда автозапуск видео запрещён
+     *  (iOS в режиме энергосбережения рисует поверх видео ▶ и не играет). Картинки так не блокируются. */
+    anim: "/media/logo/khimiya-loop-dark-720.avif",
   },
   logoStatic: {
     webp: "/media/logo/himiya-900.webp",

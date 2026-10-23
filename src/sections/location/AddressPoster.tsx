@@ -13,8 +13,8 @@ import { cn } from "@/lib/utils";
 import { blurFrom, blurTo } from "@/lib/motion";
 
 /**
- * Гигантский адрес-постер: «ПРОСП.» контуром, «КУЛАКОВА, 29Д» в полный рост.
- * Буквы влетают рывком из размытия (whip), строки потом расходятся по скорости скролла.
+ * Гигантский адрес-постер: «КУЛАКОВА, 29Д» в полный рост, номер дома — подсвеченный.
+ * Буквы влетают рывком из размытия (whip), строка потом едет по скорости скролла.
  */
 const char: Variants = {
   hidden: { opacity: 0, x: "-0.55em", skewX: -28, ...blurFrom(10) },
@@ -67,11 +67,10 @@ export function AddressPoster({ className }: { className?: string }) {
     target: ref,
     offset: ["start end", "end start"],
   });
-  const xA = useTransform(scrollYProgress, [0, 1], ["-2%", "6%"]);
   const xB = useTransform(scrollYProgress, [0, 1], ["1.5%", "-3%"]);
 
-  // «просп. Кулакова, 29Д» → «просп.» / «Кулакова,» / «29Д»
-  const [prefix, street, house] = CONTACTS.address.split(" ");
+  // «Кулакова, 29Д» → «Кулакова,» / «29Д»
+  const [street, house] = CONTACTS.address.split(" ");
 
   return (
     <motion.div
@@ -93,23 +92,12 @@ export function AddressPoster({ className }: { className?: string }) {
       <p className="display relative z-[1] text-paper">
         <span className="sr-only">{`${CONTACTS.address}, ${CONTACTS.city}`}</span>
         {/*
-          строки едут по скроллу на своих слоях (will-change): сдвиг — работа композитора,
-          а не перерисовка огромного контурного текста и подсвеченного «29Д» каждый кадр
+          строка едет по скроллу на своём слое (will-change): сдвиг — работа композитора,
+          а не перерисовка огромного текста и подсвеченного «29Д» каждый кадр
         */}
         <motion.span
           aria-hidden
-          className="block pl-[0.04em] text-[clamp(64px,19vw,96px)] md:pl-[0.06em] md:text-[clamp(96px,9.4vw,170px)]"
-          style={reduce ? undefined : { x: xA, willChange: "transform" }}
-        >
-          {/* .text-outline красит обводку в currentColor, а он уже transparent — задаём цвет обводки явно */}
-          <Whip
-            text={prefix}
-            className="text-transparent [-webkit-text-stroke:1.5px_var(--color-paper)] md:[-webkit-text-stroke:2.5px_var(--color-paper)]"
-          />
-        </motion.span>
-        <motion.span
-          aria-hidden
-          className="-mt-[0.04em] flex flex-wrap items-baseline gap-x-[0.12em] md:flex-nowrap"
+          className="flex flex-wrap items-baseline gap-x-[0.12em] md:flex-nowrap"
           style={reduce ? undefined : { x: xB, willChange: "transform" }}
         >
           <Whip

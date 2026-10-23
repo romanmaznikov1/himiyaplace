@@ -146,10 +146,16 @@ export default function Nav() {
     };
   }, [open, whenSettled, dropMenuEntry]);
 
-  const closeMenu = useCallback(() => {
-    setOpen(false);
-    burger.current?.focus({ preventScroll: true });
+  // фокус возвращаем на бургер, только если он был внутри меню (клавиатура, скринридер). После касания — нет:
+  // iOS Safari рисует программный focus() обводкой :focus-visible, и на бургере оставался прямоугольник
+  const refocusBurger = useCallback(() => {
+    if (document.getElementById(MENU_ID)?.contains(document.activeElement)) burger.current?.focus({ preventScroll: true });
   }, []);
+
+  const closeMenu = useCallback(() => {
+    refocusBurger();
+    setOpen(false);
+  }, [refocusBurger]);
 
   const goTo = useCallback((e: MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -161,11 +167,11 @@ export default function Nav() {
       // из меню: снимаем шаг истории меню, эффект снимает блокировку скролла; едем, когда история вернулась
       // (иначе #id запишется в шаг меню и пропадёт вместе с ним)
       dropMenuEntry();
+      if (!keyboard) refocusBurger();
       setOpen(false);
-      if (!keyboard) burger.current?.focus({ preventScroll: true });
       requestAnimationFrame(() => whenSettled(go));
     } else go();
-  }, [dropMenuEntry, whenSettled]);
+  }, [dropMenuEntry, whenSettled, refocusBurger]);
 
   const toTop = useCallback((e: MouseEvent<HTMLAnchorElement>) => goTo(e, "top"), [goTo]);
 
@@ -263,18 +269,8 @@ export default function Nav() {
           {!desk && (
             <div className="flex h-[60px] items-center justify-between pl-[max(20px,env(safe-area-inset-left))] pr-[max(20px,env(safe-area-inset-right))] md:pl-[max(40px,env(safe-area-inset-left))] md:pr-[max(40px,env(safe-area-inset-right))] lg:hidden">
               <motion.div variants={drop} custom={0} className="relative top-[5px]">
-                {/* над hero вместо логотипа — плитка «элемента» Хм, рифма к бургеру справа */}
-                <motion.span
-                  aria-hidden
-                  className="absolute left-0 top-1/2 grid size-10 -translate-y-[60%] place-items-center border-[1.5px] border-toxic bg-ink/60 text-toxic"
-                  initial={false}
-                  animate={showLogo ? { opacity: 0, scale: 0.6, rotate: 12 } : { opacity: 1, scale: 1, rotate: -4 }}
-                  transition={{ type: "spring", stiffness: 420, damping: 22 }}
-                >
-                  <span className="label absolute left-[3px] top-[2px] text-[0.42rem] tracking-[0.08em] text-toxic/70">00</span>
-                  <span className="display mt-1 text-[22px] normal-case leading-none">Хм</span>
-                </motion.span>
-                <Logo show={showLogo} onClick={toTop} imgClassName="w-[84px]" />
+                {/* плоский логотип с подтёками — всегда, и над hero тоже */}
+                <Logo show flat onClick={toTop} imgClassName="w-[88px]" />
               </motion.div>
               <motion.div variants={drop} custom={1}>
                 <Burger

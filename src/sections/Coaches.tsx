@@ -194,11 +194,9 @@ export default function Coaches() {
         {/* коллаж */}
         <div className="relative mt-10 grid grid-cols-2 lg:mt-[-1vw] lg:flex lg:flex-wrap">
           {/* тег + уличная философия */}
-          <div className="relative z-[1] col-span-2 mb-12 md:max-lg:grid md:max-lg:grid-cols-2 md:max-lg:items-center md:max-lg:gap-10 lg:mb-0 lg:w-[31%] lg:self-center lg:pr-[3.2%]">
-            <Reveal
-              kind="slap"
-              className="relative mx-auto aspect-[5/2] w-[92%] max-w-[460px] lg:mx-0 lg:w-[112%] lg:max-w-none lg:-translate-x-[6%]"
-            >
+          <div className="relative z-[1] col-span-2 mb-12 lg:mb-0 lg:w-[31%] lg:self-center lg:pr-[3.2%]">
+            {/* тег — только на компьютере; на телефоне и планшете его нет (lazy-картинка в display:none не грузится) */}
+            <Reveal kind="slap" className="relative hidden aspect-[5/2] lg:block lg:w-[112%] lg:-translate-x-[6%]">
               {/* мазок баллончика под тегом — шире и круче наклонён, чем сам тег */}
               <Spray
                 seed={2}
@@ -213,7 +211,7 @@ export default function Coaches() {
                 <source
                   type="image/webp"
                   srcSet={`${MEDIA.logoFlat.w640} 640w, ${MEDIA.logoFlat.w1280} 1280w`}
-                  sizes="(min-width: 1024px) 26vw, min(74vw, 370px)"
+                  sizes="26vw"
                 />
                 <img
                   src={MEDIA.logoFlat.png}
@@ -228,7 +226,7 @@ export default function Coaches() {
               </picture>
             </Reveal>
 
-            <Reveal kind="rise" delay={0.1} className="mt-8 max-w-md md:max-lg:mt-0 lg:mt-10">
+            <Reveal kind="rise" delay={0.1} className="max-w-md lg:mt-10">
               <h3 className="display text-[clamp(44px,11vw,60px)] text-paper lg:text-[clamp(40px,3.6vw,62px)]">
                 Уличная <span className="text-toxic">философия</span>
               </h3>

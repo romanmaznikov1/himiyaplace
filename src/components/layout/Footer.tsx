@@ -230,7 +230,8 @@ function Wordmark() {
     if (!follow || e.pointerType !== "mouse" || !ref.current) return;
     const r = ref.current.getBoundingClientRect();
     gx.set(e.clientX - r.left);
-    gy.set(e.clientY - r.top);
+    // ниже ¾ логотипа свечение не опускаем: круг вылез бы за низ футера и удлинил страницу
+    gy.set(Math.min(e.clientY - r.top, r.height * 0.75));
     fx.set((e.clientX - r.left) / r.width - 0.5);
     fy.set((e.clientY - r.top) / r.height - 0.5);
     shine.set(1);
@@ -292,10 +293,13 @@ function Wordmark() {
           className="absolute -left-[6%] top-[26%] aspect-[5/2] w-[112%] opacity-70"
         />
 
-        {/* свечение за буквами */}
+        {/*
+          свечение за буквами. Обёртка нулевого размера: иначе её блок (круг 640px) шёл вниз от центра
+          свечения, выходил за низ футера и под ним появлялась пустая прокрутка
+        */}
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute left-0 top-0"
+          className="pointer-events-none absolute left-0 top-0 size-0"
           style={{ x: sx, y: sy }}
         >
           <div className="animate-beat size-[min(110vw,640px)] lg:size-[46vw] lg:max-h-[640px] lg:max-w-[640px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgb(31_242_255/0.42)_0%,rgb(31_242_255/0.14)_38%,transparent_68%)] [--beat-scale:1.05] [--bpm:48]" />
@@ -318,6 +322,8 @@ function Wordmark() {
               srcSet={`${MEDIA.logoStatic.small} 320w, ${MEDIA.logoStatic.webp} 900w, ${MEDIA.logoStatic.large} 1760w`}
               sizes="(min-width: 1024px) 46vw, 92vw"
             />
+            {/* без drop-shadow: Safari на iPhone обрезал его по рамке картинки — за логотипом читался светлый
+                прямоугольник; ореол даёт круг свечения позади */}
             <img
               src={MEDIA.logoStatic.png}
               width={900}
@@ -326,7 +332,7 @@ function Wordmark() {
               loading="lazy"
               decoding="async"
               draggable={false}
-              className="h-full w-full object-contain drop-shadow-[0_0_22px_rgb(31_242_255/0.32)]"
+              className="h-full w-full object-contain"
             />
           </picture>
 

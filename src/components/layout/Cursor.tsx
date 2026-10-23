@@ -3,11 +3,13 @@ import { motion, useMotionValue, useReducedMotion, useSpring, useTransform, useV
 
 import { MEDIA } from "@/lib/content";
 
+import { X_BOX, X_HOT as HOT, X_PATH } from "./cursor-x";
+
 /**
  * Кастомный курсор (только мышь и без reduced-motion): буква «Х» из логотипа ровно под указателем —
  * кренится по ходу движения и пружинит обратно, когда мышь останавливается.
- * Над ссылками/кнопками/[data-cursor] «Х» подрастает, вокруг на пружине догоняет кольцо (difference —
- * над светлым инвертируется), над [data-cursor-label] — наклейка с подписью.
+ * Над ссылками/кнопками/[data-cursor] «Х» подрастает, а вокруг на пружине догоняет её контур тонкой линией —
+ * увеличенная «тень» той же буквы; над [data-cursor-label] — наклейка с подписью.
  * Над полями ввода и iframe прячется: там остаётся системный курсор.
  */
 type Mode = "idle" | "hover" | "label" | "native";
@@ -24,10 +26,11 @@ html.has-cursor :is([data-native-cursor], [data-native-cursor] *) { cursor: poin
 
 const SPRING = { type: "spring", stiffness: 520, damping: 30, mass: 0.6 } as const;
 
-/** Размер «Х» на экране и точка клика — пересечение штрихов, в долях картинки (печатает scripts/cut-flat-logo.py). */
+/** Размер «Х» на экране; точка клика и контур — из scripts/cut-flat-logo.py (cursor-x.ts). */
 const X_W = 27.5;
 const X_H = 50;
-const HOT = { x: 0.536, y: 0.395 };
+/** Контур над кнопками — во столько раз больше буквы; в покое он сжат ровно до неё */
+const ECHO = 1.9;
 
 export default function Cursor() {
   const reduce = useReducedMotion();
@@ -91,7 +94,7 @@ function CustomCursor() {
       if (e.pointerType === "touch") return;
       pos.current = { x: e.clientX, y: e.clientY };
       if (!shown.current) {
-        // после входа в окно кольцо не должно лететь из угла, а «Х» — крениться от «скорости» прыжка из-за края
+        // после входа в окно контур не должен лететь из угла, а «Х» — крениться от «скорости» прыжка из-за края
         shown.current = true;
         x.jump(e.clientX);
         y.jump(e.clientY);
@@ -155,18 +158,45 @@ function CustomCursor() {
     <>
       <style>{CSS}</style>
 
-      {/* кольцо над ссылками и кнопками — режим difference: над светлым фоном цвет инвертируется */}
-      <motion.div
-        aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[100] mix-blend-difference"
-        style={{ x: rx, y: ry }}
-      >
-        <motion.span
-          className="absolute block size-16 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-toxic"
-          initial={false}
-          animate={{ opacity: hover ? 1 : 0, scale: hover ? (down ? 0.78 : 1) : 0.4 }}
-          transition={SPRING}
-        />
+      {/*
+        Над ссылками и кнопками — контур той же «Х», крупнее и с отставанием на пружине: тонкая голубая линия
+        поверх чернильной подложки, поэтому видна и на тёмном, и на светлых панелях. Вырастает из самой буквы,
+        при нажатии сжимается обратно на неё.
+      */}
+      <motion.div aria-hidden className="pointer-events-none fixed left-0 top-0 z-[100]" style={{ x: rx, y: ry }}>
+        <motion.span className="absolute left-0 top-0 block" style={{ rotate: tilt }}>
+          <motion.svg
+            viewBox={`0 0 ${X_BOX.w} ${X_BOX.h}`}
+            className="absolute block overflow-visible"
+            style={{
+              width: X_W * ECHO,
+              height: X_H * ECHO,
+              left: -X_W * ECHO * HOT.x,
+              top: -X_H * ECHO * HOT.y,
+              transformOrigin: `${HOT.x * 100}% ${HOT.y * 100}%`,
+            }}
+            initial={false}
+            animate={{ opacity: hover ? 1 : 0, scale: hover ? (down ? 0.62 : 1) : 1 / ECHO }}
+            transition={SPRING}
+          >
+            <path
+              d={X_PATH}
+              fill="none"
+              stroke="var(--color-ink)"
+              strokeWidth={3.5}
+              strokeLinejoin="round"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d={X_PATH}
+              fill="none"
+              stroke="var(--color-toxic)"
+              strokeWidth={1.25}
+              strokeLinejoin="round"
+              vectorEffect="non-scaling-stroke"
+            />
+          </motion.svg>
+        </motion.span>
       </motion.div>
 
       {/* наклейка с подписью над [data-cursor-label] — без смешивания, чтобы текст читался всегда */}
@@ -203,7 +233,7 @@ function CustomCursor() {
               transformOrigin: `${HOT.x * 100}% ${HOT.y * 100}%`,
             }}
             initial={false}
-            animate={{ opacity: letter ? 1 : 0, scale: letter ? (down ? 0.78 : hover ? 1.2 : 1) : 0.4 }}
+            animate={{ opacity: letter ? 1 : 0, scale: letter ? (down ? 0.78 : hover ? 1.12 : 1) : 0.4 }}
             transition={SPRING}
           />
         </motion.span>

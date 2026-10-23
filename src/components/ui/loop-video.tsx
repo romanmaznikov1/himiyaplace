@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils";
 /**
  * Зацикленное беззвучное видео, которое грузится только у экрана и ставится на паузу вне его.
  * При prefers-reduced-motion и в режиме экономии трафика показывает постер.
+ * Если браузер не даёт автозапуск (iOS в режиме энергосбережения), вместо видео — анимированная картинка
+ * fallback, а без неё — постер, и видео пробует стартовать с первого касания.
  *
  *   <LoopVideo src="/media/directions/hiphop.mp4" poster="/media/directions/hiphop.jpg" className="h-full w-full object-cover" />
  */
@@ -20,6 +22,8 @@ type Props = {
   playbackRate?: number;
   /** Принудительная пауза (например, hero полностью накрыт следующей секцией). */
   paused?: boolean;
+  /** Анимированная картинка (AVIF) той же петли — на случай, когда автозапуск видео запрещён. */
+  fallback?: string;
 };
 
 /**
@@ -43,10 +47,21 @@ const SAVE_DATA = typeof window !== "undefined" && constrainedData();
  * «видно» (0px) — играть/пауза. Источники вставляются один раз через JSX, без el.load():
  * вставка <source> сама запускает выбор ресурса, а load() обрывал первый запрос (двойная загрузка).
  */
-export function LoopVideo({ src, webm, poster, className, style, eager = false, playbackRate = 1, paused = false }: Props) {
+export function LoopVideo({
+  src,
+  webm,
+  poster,
+  className,
+  style,
+  eager = false,
+  playbackRate = 1,
+  paused = false,
+  fallback,
+}: Props) {
   const ref = useRef<HTMLVideoElement>(null);
   const reduce = useReducedMotion() || SAVE_DATA;
   const [near, setNear] = useState(eager);
+  const [blocked, setBlocked] = useState(false);
   const visible = useRef(false);
   const want = useRef({ paused, reduce, playbackRate });
   want.current = { paused, reduce, playbackRate };
@@ -57,7 +72,11 @@ export function LoopVideo({ src, webm, poster, className, style, eager = false, 
     const w = want.current;
     if (visible.current && !w.paused && !w.reduce && el.querySelector("source")) {
       el.playbackRate = w.playbackRate;
-      if (el.paused) el.play().catch(() => {});
+      if (el.paused)
+        el.play().catch((err: unknown) => {
+          // NotAllowedError — автозапуск запрещён (энергосбережение iOS); AbortError от паузы во время старта — не он
+          if (err instanceof DOMException && err.name === "NotAllowedError") setBlocked(true);
+        });
     } else if (!el.paused) {
       el.pause();
     }
@@ -95,6 +114,28 @@ export function LoopVideo({ src, webm, poster, className, style, eager = false, 
     sync();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [near, paused, reduce, playbackRate]);
+
+  // автозапуск запрещён и картинки нет: касание — жест пользователя, из него play() разрешён
+  useEffect(() => {
+    if (!blocked || fallback) return;
+    const retry = () => sync();
+    document.addEventListener("touchend", retry, { once: true, passive: true });
+    document.addEventListener("click", retry, { once: true });
+    return () => {
+      document.removeEventListener("touchend", retry);
+      document.removeEventListener("click", retry);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [blocked, fallback]);
+
+  if (blocked && fallback && !reduce) {
+    return (
+      <picture>
+        <source srcSet={fallback} type="image/avif" />
+        <img src={poster} alt="" aria-hidden draggable={false} className={cn("block", className)} style={style} />
+      </picture>
+    );
+  }
 
   const sources = near && !reduce;
   return (

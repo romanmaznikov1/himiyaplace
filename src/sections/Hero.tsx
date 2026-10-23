@@ -239,13 +239,8 @@ export default function Hero() {
               className="relative z-[5] shrink-0 pb-[4.5vw] pt-[84px] will-change-[opacity,transform] md:pt-[104px] landscape:hidden [@media(max-height:700px)]:pt-[76px]"
               style={{ opacity: headOpacity, y: headY }}
             >
-              <div className="flex min-h-[2.6rem] flex-col gap-1 px-6 md:min-h-[3.2rem] md:px-10">
-                {go && (
-                  <>
-                    <ScrambleText text="Школа танцев" className="label block text-paper md:text-[0.95rem]" duration={650} />
-                    <ScrambleText text="Ставрополь" className="label block text-toxic md:text-[0.95rem]" duration={800} />
-                  </>
-                )}
+              <div className="flex min-h-[1.3rem] flex-col px-6 md:min-h-[1.6rem] md:px-10">
+                {go && <ScrambleText text="Школа танцев" className="label block text-paper md:text-[0.95rem]" duration={650} />}
               </div>
               <motion.div className="-mx-[8vw] mt-5 md:mt-8" style={{ x: tapeX }}>
                 <motion.div variants={tapeIn} custom={{ x: -120, y: 0, d: 0.32 }}>
@@ -269,7 +264,7 @@ export default function Hero() {
                   {/* под Directions строку не крутим: у VelocityMarquee нет паузы, а её кадры шли бы и за кадром */}
                   {!covered && (
                     <VelocityMarquee baseVelocity={-1.1} copies={3} itemClassName="display text-[30svh] leading-[0.9] landscape:text-[46svh]">
-                      <span style={OUTLINE}>Школа танцев ✕ Ставрополь ✕</span>
+                      <span style={OUTLINE}>Школа танцев ✕</span>
                     </VelocityMarquee>
                   )}
                 </motion.div>
@@ -289,6 +284,7 @@ export default function Hero() {
                     src={loop.mp4}
                     webm={loop.webm}
                     poster={loop.poster}
+                    fallback={MEDIA.logoLoop.anim}
                     paused={covered}
                     className="hx-video h-full w-full object-cover"
                   />
@@ -303,12 +299,7 @@ export default function Hero() {
             >
               <motion.div variants={riseIn} custom={0.42} className="min-w-0">
                 <span aria-hidden className="label mb-2.5 hidden text-paper/85 landscape:block [@media(max-height:500px)]:hidden">
-                  {go && (
-                    <>
-                      <ScrambleText text="Школа танцев" duration={650} /> <span className="text-toxic">✕</span>{" "}
-                      <ScrambleText text={CONTACTS.city} className="text-toxic" duration={800} />
-                    </>
-                  )}
+                  {go && <ScrambleText text="Школа танцев" duration={650} />}
                 </span>
                 {/* портрет: каждая строка — в одну строку и в запасном шрифте, высота блока не меняется, когда приходит
                     Sofia (CLS). Боком блок не зажат по ширине — там перенос остаётся страховкой от наезда на CTA */}

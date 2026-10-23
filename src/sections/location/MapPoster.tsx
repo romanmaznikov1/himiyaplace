@@ -116,7 +116,7 @@ export function MapPoster({ className }: { className?: string }) {
               <iframe
                 ref={frame}
                 src={MAP_SRC}
-                title="Карта: студия «Химия», просп. Кулакова, 29Д"
+                title={`Карта: студия «Химия», ${CONTACTS.address}`}
                 className={cn(
                   "absolute inset-0 size-full border-0 transition-opacity duration-700",
                   loaded ? "opacity-100" : "opacity-0",
@@ -347,7 +347,7 @@ function MapPlaceholder({ loading }: { loading: boolean }) {
           letterSpacing="3"
           className="font-sans uppercase"
         >
-          просп. Кулакова
+          Кулакова
         </text>
         {/* метка */}
         <g transform="translate(425 300)">
